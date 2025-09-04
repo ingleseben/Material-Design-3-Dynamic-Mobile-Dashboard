@@ -89,3 +89,4 @@ This project builds upon the work of:
 - Newryn - [Material You Utilities](https://github.com/Nerwyn/material-you-utilities)
 - [MySmartHome](https://www.youtube.com/@My_Smart_Home) - for button cards styling, sliders, etc
 - Other community members who kindly shared their cards
+- [Background Creator](https://www.pexels.com/photo/a-blurry-background-7640905)
