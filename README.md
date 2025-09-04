@@ -72,6 +72,16 @@ Several cards are inspired by the incredible work of others in the Home Assistan
 - [Vertical Stack In Card](https://github.com/ofekashery/vertical-stack-in-card)
 - [World's Air Quality Index](https://www.home-assistant.io/integrations/waqi/)
 
+# Installation
+
+- Copy the full YAML configuration into your Home Assistant dashboard setup.
+- Install the required HACS components (such as swipe-card, stack-in-card, popup-card, etc. — see your setup for what’s needed).
+- Apply the MD3 theme and select your preferred colors. It is accessible from Home > More > Theme Icon
+
+<img width="200" height="180" alt="Dynamic Colors Showcase" src="https://github.com/user-attachments/assets/b7a0166b-edbd-4767-9e13-1623be587465" />
+
+- Enjoy your personalized dynamic dashboard! 🎉
+
 # 📚 Credits
 
 This project builds upon the work of:
