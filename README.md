@@ -76,6 +76,7 @@ Several cards are inspired by the incredible work of others in the Home Assistan
 
 - Copy the full YAML configuration into your Home Assistant dashboard setup.
 - Install the required HACS components (such as swipe-card, stack-in-card, popup-card, etc. — see your setup for what’s needed).
+- To unlock the full functionality (like weather icons, notification counts, and more), you’ll need to add the corresponding sensors to your config (check the file section above to get the codes).
 - Apply the MD3 theme and select your preferred colors. It is accessible from Home > More > Theme Icon
 
 <img width="200" height="180" alt="Dynamic Colors Showcase" src="https://github.com/user-attachments/assets/b7a0166b-edbd-4767-9e13-1623be587465" />
