@@ -2,7 +2,7 @@
 
 A modern Home Assistant dashboard built on Material Design 3 (MD3) principles. It features a dynamic, transparent, and adaptive card layout with a sleek, clean UI for an elegant smart home experience. This is a complete dashboard that brings together lights, switches, temperature and humidity, rainfall, wind, weather forecasts, alarms, Hue scenes, cameras, heat pumps, door/window sensors, and more—all in one cohesive design.
 
-_v3.1.0_ brings a major visual and functional redesign inspired by Google Home, improving the overall Material Design 3 (MD3) experience. Buttons have been redesigned with new light sliders and switches, including tap and hold actions for quick off or more-info access. The Server page has been reworked to show detailed HAOS and Proxmox info, with battery data merged in. Each room now features climate control, power consumption charts where available, and media player support for rooms with speakers. Most MDI icons have been replaced with Material Symbols, and the font has been updated to Figtree (similar to Google Sans). Old decluttering templates tied to previous button cards have been removed, and a new media_player_card decluttering template has been added. This release focuses on polish, consistency, and usability, making the dashboard cleaner, more functional, and visually cohesive.
+_v3.1.2_ [full_yaml](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/full_yaml) was updated to match the new card spec from Lovelace Material Component, as the previous version has been deprecated.
 
 # ✨ Features
 
