@@ -1849,7 +1849,7 @@ views:
                             entity_id: light.lights_*
                             state: 'on'
                             options:
-                              type: custom:google-slider-card
+                              type: custom:material-slider-card
                               entity: this.entity_id
                               show_percentage: true
                               bold_text: false
@@ -1858,7 +1858,7 @@ views:
                             entity_id: '*led*'
                             state: 'on'
                             options:
-                              type: custom:google-slider-card
+                              type: custom:material-slider-card
                               entity: this.entity_id
                               icon: mdi:led-strip-variant
                               show_percentage: true
@@ -1892,7 +1892,7 @@ views:
                                 entity_id: '*switch*'
                                 state: 'on'
                                 options:
-                                  type: custom:google-button-card
+                                  type: custom:material-button-card
                                   use_default_icon: false
                                   use_default_toggle: true
                                   use_default_text: true
@@ -1930,7 +1930,7 @@ views:
                               - group: fan.all_fans
                                 state: 'on'
                                 options:
-                                  type: custom:google-button-card
+                                  type: custom:material-button-card
                                   use_default_icon: false
                                   use_default_toggle: true
                                   use_default_text: true
@@ -5599,7 +5599,7 @@ views:
                         - title: Lights
                     - type: vertical-stack
                       cards:
-                        - type: custom:google-button-card
+                        - type: custom:material-button-card
                           use_default_icon: false
                           use_default_toggle: true
                           use_default_text: true
@@ -5629,7 +5629,7 @@ views:
                           cards:
                             - type: horizontal-stack
                               cards:
-                                - type: custom:google-button-card
+                                - type: custom:material-button-card
                                   use_default_icon: false
                                   use_default_toggle: true
                                   use_default_text: true
@@ -5639,7 +5639,7 @@ views:
                                   dual_icon: true
                                   icon_on: m3of:lightbulb
                                   icon_off: m3of:light-off
-                                - type: custom:google-button-card
+                                - type: custom:material-button-card
                                   use_default_icon: false
                                   use_default_toggle: true
                                   use_default_text: true
@@ -6084,13 +6084,13 @@ views:
                       cards:
                         - type: horizontal-stack
                           cards:
-                            - type: custom:google-slider-card
+                            - type: custom:material-slider-card
                               entity: light.lights_ktc
                               icon: m3of:lightbulb
                               show_percentage: true
                               bold_text: false
                               control_type: light
-                            - type: custom:google-slider-card
+                            - type: custom:material-slider-card
                               entity: light.lights_dt_only
                               icon: m3of:lightbulb
                               show_percentage: true
@@ -6098,7 +6098,7 @@ views:
                               control_type: light
                         - type: horizontal-stack
                           cards:
-                            - type: custom:google-button-card
+                            - type: custom:material-button-card
                               use_default_icon: false
                               entity: switch.kitchen_cabinet_led
                               height: 97
@@ -6106,7 +6106,7 @@ views:
                               dual_icon: true
                               icon_on: mdi:led-strip-variant
                               icon_off: mdi:led-strip-variant-off
-                            - type: custom:google-button-card
+                            - type: custom:material-button-card
                               use_default_icon: false
                               entity: switch.table_top_light
                               height: 97
@@ -6114,7 +6114,7 @@ views:
                               icon: m3of:countertops
                         - type: horizontal-stack
                           cards:
-                            - type: custom:google-button-card
+                            - type: custom:material-button-card
                               use_default_icon: false
                               entity: switch.table_top_led
                               height: 97
@@ -6122,7 +6122,7 @@ views:
                               dual_icon: true
                               icon_on: mdi:led-strip-variant
                               icon_off: mdi:led-strip-variant-off
-                            - type: custom:google-slider-card
+                            - type: custom:material-slider-card
                               entity: light.lights_sofa
                               icon: m3of:lightbulb
                               show_percentage: true
@@ -6147,7 +6147,7 @@ views:
                           cards:
                             - type: vertical-stack
                               cards:
-                                - type: custom:google-slider-card
+                                - type: custom:material-slider-card
                                   entity: light.light_scr
                                   icon: m3of:lightbulb
                                   show_percentage: true
@@ -6155,13 +6155,13 @@ views:
                                   control_type: light
                                 - type: horizontal-stack
                                   cards:
-                                    - type: custom:google-button-card
+                                    - type: custom:material-button-card
                                       use_default_icon: false
                                       entity: switch.patio_main_switch_la
                                       height: 97
                                       control_type: generic
                                       icon: mdi:outdoor-lamp
-                                    - type: custom:google-button-card
+                                    - type: custom:material-button-card
                                       use_default_icon: false
                                       entity: switch.patio_side_switch_la
                                       height: 97
@@ -6176,7 +6176,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Climate Control
-                    - type: custom:google-climate-card
+                    - type: custom:material-climate-card
                       entity: climate.living_room
                       increase_temp: 1
                       decrease_temp: 1
@@ -6313,7 +6313,7 @@ views:
                           entity: switch.rice_cooker_switch_ktc
                           state: 'on'
                       card:
-                        type: custom:google-button-card
+                        type: custom:material-button-card
                         use_default_icon: false
                         use_default_toggle: true
                         use_default_text: true
@@ -6327,7 +6327,7 @@ views:
                           entity: switch.blender_switch_ktc
                           state: 'on'
                       card:
-                        type: custom:google-button-card
+                        type: custom:material-button-card
                         use_default_icon: false
                         use_default_toggle: true
                         use_default_text: true
@@ -6550,14 +6550,14 @@ views:
                         - title: Lights
                     - type: horizontal-stack
                       cards:
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.lights_mbr
                           show_percentage: true
                           bold_text: false
                           control_type: light
                     - type: horizontal-stack
                       cards:
-                        - type: custom:google-button-card
+                        - type: custom:material-button-card
                           use_default_icon: false
                           entity: switch.left_bedside_light_switch_mbr
                           height: 97
@@ -6565,7 +6565,7 @@ views:
                           dual_icon: true
                           icon_on: m3of:face-2
                           icon_off: m3o:face-2
-                        - type: custom:google-button-card
+                        - type: custom:material-button-card
                           use_default_icon: false
                           entity: switch.right_bedside_light_switch_mbr
                           height: 97
@@ -6575,7 +6575,7 @@ views:
                           icon_off: m3o:face
                     - type: horizontal-stack
                       cards:
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.makeup_table_led_mbr
                           show_percentage: true
                           bold_text: false
@@ -6584,7 +6584,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Fan
-                    - type: custom:google-button-card
+                    - type: custom:material-button-card
                       use_default_icon: false
                       entity: fan.mbrt
                       height: 97
@@ -6608,18 +6608,18 @@ views:
                       cards:
                         - type: horizontal-stack
                           cards:
-                            - type: custom:google-slider-card
+                            - type: custom:material-slider-card
                               entity: light.lights_wr
                               show_percentage: true
                               bold_text: false
                               control_type: light
-                            - type: custom:google-button-card
+                            - type: custom:material-button-card
                               use_default_icon: false
                               entity: switch.patio_main_switch_la
                               height: 97
                               control_type: generic
                               icon: mdi:outdoor-lamp
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.floor_led_wr
                           show_percentage: true
                           bold_text: false
@@ -6633,7 +6633,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Climate Control
-                    - type: custom:google-climate-card
+                    - type: custom:material-climate-card
                       entity: climate.master_bedroom
                       increase_temp: 1
                       decrease_temp: 1
@@ -6734,7 +6734,7 @@ views:
                               entity: switch.baby_monitor_switch_mbr
                               state: 'on'
                           card:
-                            type: custom:google-button-card
+                            type: custom:material-button-card
                             use_default_icon: false
                             use_default_toggle: true
                             use_default_text: true
@@ -6748,7 +6748,7 @@ views:
                               entity: switch.other_switch_mbr
                               state: 'on'
                           card:
-                            type: custom:google-button-card
+                            type: custom:material-button-card
                             use_default_icon: false
                             use_default_toggle: true
                             use_default_text: true
@@ -6996,7 +6996,7 @@ views:
                         - title: Lights
                     - type: vertical-stack
                       cards:
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.lights_br
                           icon: m3of:lightbulb
                           show_percentage: true
@@ -7004,13 +7004,13 @@ views:
                           control_type: light
                         - type: horizontal-stack
                           cards:
-                            - type: custom:google-slider-card
+                            - type: custom:material-slider-card
                               entity: light.ava_bed_led_br
                               icon: mdi:led-strip-variant
                               show_percentage: true
                               bold_text: false
                               control_type: light
-                            - type: custom:google-slider-card
+                            - type: custom:material-slider-card
                               entity: light.iyla_bed_led_br
                               icon: mdi:led-strip-variant
                               show_percentage: true
@@ -7025,7 +7025,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Climate Control
-                    - type: custom:google-climate-card
+                    - type: custom:material-climate-card
                       entity: climate.baby_room
                       increase_temp: 1
                       decrease_temp: 1
@@ -7105,7 +7105,7 @@ views:
                               entity: switch.baby_camera_switch
                               state: 'on'
                           card:
-                            type: custom:google-button-card
+                            type: custom:material-button-card
                             use_default_icon: false
                             use_default_toggle: true
                             use_default_text: true
@@ -7119,7 +7119,7 @@ views:
                               entity: switch.other_switch_br
                               state: 'on'
                           card:
-                            type: custom:google-button-card
+                            type: custom:material-button-card
                             use_default_icon: false
                             use_default_toggle: true
                             use_default_text: true
@@ -7338,13 +7338,13 @@ views:
                         - title: Lights
                     - type: vertical-stack
                       cards:
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.lights_sgr
                           icon: m3of:lightbulb
                           show_percentage: true
                           bold_text: false
                           control_type: light
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.bed_led_sgr
                           icon: mdi:led-strip-variant
                           show_percentage: true
@@ -7359,7 +7359,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Climate Control
-                    - type: custom:google-climate-card
+                    - type: custom:material-climate-card
                       entity: climate.single_guest_room
                       increase_temp: 1
                       decrease_temp: 1
@@ -7628,13 +7628,13 @@ views:
                         - title: Lights
                     - type: vertical-stack
                       cards:
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.lights_mgr
                           icon: m3of:lightbulb
                           show_percentage: true
                           bold_text: false
                           control_type: light
-                        - type: custom:google-slider-card
+                        - type: custom:material-slider-card
                           entity: light.bed_led_mgr
                           icon: mdi:led-strip-variant
                           show_percentage: true
@@ -7649,7 +7649,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Climate Control
-                    - type: custom:google-climate-card
+                    - type: custom:material-climate-card
                       entity: climate.multiple_guest_room
                       increase_temp: 1
                       decrease_temp: 1
@@ -7926,7 +7926,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Lights
-                    - type: custom:google-button-card
+                    - type: custom:material-button-card
                       use_default_icon: false
                       use_default_toggle: true
                       use_default_text: true
@@ -7945,7 +7945,7 @@ views:
                       template: mushroom_title_card
                       variables:
                         - title: Climate Control
-                    - type: custom:google-climate-card
+                    - type: custom:material-climate-card
                       entity: climate.office_room
                       increase_temp: 1
                       decrease_temp: 1
@@ -8108,7 +8108,7 @@ views:
                               entity: switch.mackbook_switch_or
                               state: 'on'
                           card:
-                            type: custom:google-button-card
+                            type: custom:material-button-card
                             use_default_icon: false
                             use_default_toggle: true
                             use_default_text: true
@@ -8122,7 +8122,7 @@ views:
                               entity: switch.pc_dock_switch_or
                               state: 'on'
                           card:
-                            type: custom:google-button-card
+                            type: custom:material-button-card
                             use_default_icon: false
                             use_default_toggle: true
                             use_default_text: true
