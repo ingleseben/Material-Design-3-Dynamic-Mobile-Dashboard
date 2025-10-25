@@ -1,0 +1,51 @@
+- sensor:
+    - name: "Forecast UV Index"
+      unique_id: forecast_uv_index
+      unit_of_measurement: "UV"
+      state: >
+        {% set f = state_attr('sensor.met_no_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
+        {% if f is sequence and f | count > 0 %}
+          {{ f[0].uv_index }}
+        {% else %}
+          unknown
+        {% endif %}
+
+    - name: "Forecast Cloud Coverage"
+      unique_id: forecast_cloud_coverage
+      unit_of_measurement: "%"
+      state: >
+        {% set f = state_attr('sensor.met_no_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
+        {% if f is sequence and f | count > 0 %}
+          {{ f[0].cloud_coverage }}
+        {% else %}
+          unknown
+        {% endif %}
+        
+    - name: "Forecast Rainfall"
+      unique_id: forecast_rainfall
+      unit_of_measurement: "mm"
+      state: >
+        {% set f = state_attr('sensor.met_no_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
+        {% if f is sequence and f | count > 0 %}
+          {{ f[0].precipitation }}
+        {% else %}
+          unknown
+        {% endif %}
+        
+    - name: "Forecast Wind Speed"
+      unique_id: forecast_wind_speed
+      unit_of_measurement: "km/h"
+      state: >
+        {{ state_attr('weather.forecast_home', 'wind_speed') }}
+
+    - name: "Forecast Wind Direction"
+      unique_id: forecast_wind_direction
+      unit_of_measurement: "°"
+      state: >
+        {{ state_attr('weather.forecast_home', 'wind_bearing') }}
+
+    - name: "Forecast Temperature"
+      unique_id: forecast_temperature
+      unit_of_measurement: "°C"
+      state: >
+        {{ state_attr('weather.forecast_home', 'temperature') }}
