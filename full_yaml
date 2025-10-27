@@ -255,7 +255,7 @@ decluttering_templates:
       icon: '[[icon]]'
       icon_color: |-
         {% if is_state(entity, 'on') %} 
-          #ecce85
+          #D3C890
         {% else %}
           #5b5b5b
         {% endif %}      
@@ -3283,19 +3283,19 @@ views:
                             --color: var(--primary-primary-color);          
                             --chip-background: {% set temp = states('sensor.attic_temperature') | float %}
                           {% if temp < 13 %}
-                            rgba(172, 156, 175, 0.8)
+                            rgba(172, 156, 175, 0.6)
                           {% elif temp < 16 %}          
-                            rgba(215, 196, 219, 0.8)
+                            rgba(215, 196, 219, 0.6)
                           {% elif temp < 19 %}
-                            rgba(163, 217, 245, 0.8)
+                            rgba(163, 217, 245, 0.6)
                           {% elif temp < 22 %}
-                            rgba(205, 227, 219, 0.8)
+                            rgba(205, 227, 219, 0.6)
                           {% elif temp < 24 %}
-                            rgba(255, 229, 153, 0.8)
+                            rgba(255, 229, 153, 0.6)
                           {% elif temp < 27 %}
-                            rgba(247, 190, 129, 0.8)
+                            rgba(247, 190, 129, 0.6)
                           {% else %}
-                            rgba(224, 102, 102, 0.8)
+                            rgba(224, 102, 102, 0.6)
                           {% endif %};    
                           }              
                 alignment: end
@@ -3399,19 +3399,19 @@ views:
                       background:
                       {% set temp = states('sensor.garage_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};            
                       max-width: 100%;
                       min-width: 50%;
@@ -3577,19 +3577,19 @@ views:
                       background:
                       {% set temp = states('sensor.living_room_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};             
                       max-width: 100%;
                       min-width: 50%;
@@ -3757,19 +3757,19 @@ views:
                       background:
                       {% set temp = states('sensor.master_bedroom_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};        
                       max-width: 100%;
                       min-width: 50%;
@@ -3935,19 +3935,19 @@ views:
                       background:
                       {% set temp = states('sensor.baby_room_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};        
                       max-width: 100%;
                       min-width: 50%;
@@ -4115,19 +4115,19 @@ views:
                       background:
                       {% set temp = states('sensor.single_guest_room_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};        
                       max-width: 100%;
                       min-width: 50%;
@@ -4254,19 +4254,19 @@ views:
                       background:
                       {% set temp = states('sensor.multiple_guest_room_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};        
                       max-width: 100%;
                       min-width: 50%;
@@ -4395,19 +4395,19 @@ views:
                       background:
                       {% set temp = states('sensor.office_room_temperature') | float %}
                         {% if temp < 13 %}
-                          rgba(172, 156, 175, 0.8)
+                          rgba(172, 156, 175, 0.6)
                         {% elif temp < 16 %}          
-                          rgba(215, 196, 219, 0.8)
+                          rgba(215, 196, 219, 0.6)
                         {% elif temp < 19 %}
-                          rgba(163, 217, 245, 0.8)
+                          rgba(163, 217, 245, 0.6)
                         {% elif temp < 22 %}
-                          rgba(205, 227, 219, 0.8)
+                          rgba(205, 227, 219, 0.6)
                         {% elif temp < 24 %}
-                          rgba(255, 229, 153, 0.8)
+                          rgba(255, 229, 153, 0.6)
                         {% elif temp < 27 %}
-                          rgba(247, 190, 129, 0.8)
+                          rgba(247, 190, 129, 0.6)
                         {% else %}
-                          rgba(224, 102, 102, 0.8)
+                          rgba(224, 102, 102, 0.6)
                         {% endif %};        
                       max-width: 100%;
                       min-width: 50%;
