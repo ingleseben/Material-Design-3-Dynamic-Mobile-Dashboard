@@ -48,9 +48,12 @@ Card Related Stuffs:
 - [Calendar Card Pro](https://github.com/alexpfau/calendar-card-pro)
 - [Expander-Card](https://github.com/MelleD/lovelace-expander-card)
 - [LLM Vision Card](https://github.com/valentinfrlch/llmvision-card)
+- [Mediocre Hass Media Player Cards](https://github.com/antontanderup/mediocre-hass-media-player-cards) - new in v3.2.0
 - [Mini-Graph-Card](https://github.com/kalkih/mini-graph-card)
 - [Mushroomn](https://github.com/piitaya/lovelace-mushroom)
 - [Navbar Card](https://github.com/joseluis9595/lovelace-navbar-card)
+- [Simple Swipe Card](https://github.com/nutteloost/simple-swipe-card)
+- [Simple Tabs Card](https://github.com/agoberg85/home-assistant-simple-tabs)
 - [Timer Bar Card](https://github.com/rianadon/timer-bar-card)
 - [Web RTC Camera](https://github.com/AlexxIT/WebRTC)
 
@@ -59,20 +62,16 @@ Theming / ETC:
 - [Card-Mod](https://github.com/thomasloven/lovelace-card-mod)
 - [Config Template Card](https://github.com/iantrich/config-template-card)
 - [Decluttering Card](https://github.com/custom-cards/decluttering-card)
-- [Home Assistant Swipe Navigation](https://github.com/zanna-37/hass-swipe-navigation)
 - [Kiosk Mode](https://github.com/maykar/kiosk-mode)
 - [Layout-Card](https://github.com/thomasloven/lovelace-layout-card)
 - [Lovelace Material Components](https://github.com/giovannilamarmora/lovelace-material-components)
 - [Material Symbols](https://github.com/beecho01/material-symbols)
 - [Material You Theme](https://github.com/Nerwyn/material-you-theme)
 - [Material You Utilities](https://github.com/Nerwyn/material-you-utilities)
-- [Mediocre Hass Media Player Cards](https://github.com/antontanderup/mediocre-hass-media-player-cards) - new in v3.2.0
 - [My Cards Bundle](https://github.com/AnthonMS/my-cards)
 - [Paper Buttons Row](https://github.com/jcwillox/lovelace-paper-buttons-row)
 - [Stack In Card](https://github.com/custom-cards/stack-in-card)
 - [Scene Presets](https://github.com/Hypfer/hass-scene_presets)
-- [Simple Swipe Card](https://github.com/nutteloost/simple-swipe-card)
-- [Simple Tabs Card](https://github.com/agoberg85/home-assistant-simple-tabs)
 - [Vertical Stack In Card](https://github.com/ofekashery/vertical-stack-in-card)
 
 Weather Related:
