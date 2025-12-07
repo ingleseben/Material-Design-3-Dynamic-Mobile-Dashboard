@@ -192,7 +192,7 @@ cards:
               template: camera_rtsp_with_chips_card
               variables:
                 camera_url: >-
-                  ffmpeg:rtsp://admin:Orange1612$@192.168.1.150/h265Preview_01_main#video=copy#audio=opus
+                  ffmpeg:rtsp://{{usernname:password}}@{{ip_address}}/h265Preview_01_main#video=copy#audio=opus
                 entity_id_light_one: switch.light_switch_drw
                 light_one_icon: m3of:lightbulb
                 entity_id_light_two: switch.porch_light_drw
@@ -214,7 +214,7 @@ cards:
               template: camera_rtsp_with_chips_card
               variables:
                 camera_url: >-
-                  ffmpeg:rtsp://admin:Orange1612$@192.168.1.222/h264Preview_01_main#video=copy#audio=opus
+                  ffmpeg:rtsp://{{usernname:password}}@{{ip_address}}/h264Preview_01_main#video=copy#audio=opus
                 entity_id_light_one: switch.light_switch_grg
                 light_one_icon: mdi:garage-variant
                 entity_id_light_two: switch.rear_light_switch_grg
