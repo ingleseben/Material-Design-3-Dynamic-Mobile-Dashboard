@@ -1,0 +1,69 @@
+type: custom:vertical-stack-in-card
+cards:
+  - type: conditional
+    conditions:
+      - entity: input_boolean.room_toggle_one_mobile
+        state: "on"
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:streamline-card
+          template: room_card
+          variables:
+            name: Garage
+            icon: mdi:garage-variant
+            entity_id_temperature: sensor.garage_temperature
+            entity_id_humidity: sensor.garage_humidity
+            entity_id_lights: switch.light_switch_grg
+            lights_icon: mdi:light-recessed
+            entity_id_doors: group.doors_grg
+            navigation_path: /mobile-dashboard/garage
+        - type: custom:streamline-card
+          template: room_card
+          variables:
+            name: Living Room
+            icon: mdi:sofa
+            entity_id_ac_main: climate.heat_pump
+            entity_id_ac: climate.living_room
+            entity_id_temperature: sensor.living_room_temperature
+            entity_id_humidity: sensor.living_area_humidity
+            entity_id_lights: light.lights_la
+            lights_icon: mdi:light-recessed
+            entity_id_windows: group.windows_la
+            entity_id_doors: group.doors_la
+            navigation_path: /mobile-dashboard/living-area
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.room_toggle_two_mobile
+        state: "on"
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:streamline-card
+          template: room_card
+          variables:
+            name: Office
+            icon: m3of:computer
+            entity_id_temperature: sensor.office_room_temperature
+            entity_id_humidity: sensor.office_room_humidity
+            entity_id_ac_main: climate.heat_pump
+            entity_id_ac: climate.office_room
+            entity_id_lights: switch.light_switch_or
+            lights_icon: mdi:light-recessed
+            entity_id_windows: group.windows_or
+            navigation_path: /mobile-dashboard/office
+        - type: custom:streamline-card
+          template: room_card
+          variables:
+            name: Guest Bathroom
+            icon: m3of:water-drop
+            entity_id_temperature: sensor.guest_bathroom_temperature
+            entity_id_humidity: sensor.guest_bathroom_humidity
+            entity_id_lights: light.lights_gbr
+            lights_icon: mdi:light-recessed
+            entity_id_windows: group.windows_gbr
+            navigation_path: /mobile-dashboard/guest-bathroom
+            entity_id_fans: fan.guest_bahtroom_fans
+view_layout:
+  grid-area: room1
