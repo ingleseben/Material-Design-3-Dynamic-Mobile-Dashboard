@@ -1,0 +1,28 @@
+type: custom:simple-tabs
+pre-load: true
+active-background: var(--md-sys-color-tertiary)
+active-text-color: var(--md-sys-color-on-tertiary)
+text-color: var(--primary-text-color)
+tabs:
+  - title: Person
+    icon: m3o:person-alert
+    card:
+      type: custom:llmvision-card
+      calendar_entity: calendar.llm_vision_timeline
+      number_of_hours: 24
+      number_of_events: 10
+      entity: calendar.llm_vision_timeline
+      camera_filters: []
+      category_filters:
+        - people
+  - title: Vehicle
+    icon: m3o:car-crash
+    card:
+      type: custom:llmvision-card
+      calendar_entity: calendar.llm_vision_timeline
+      number_of_hours: 24
+      number_of_events: 10
+      entity: calendar.llm_vision_timeline
+      camera_filters: []
+      category_filters:
+        - vehicles
