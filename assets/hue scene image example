@@ -1,0 +1,44 @@
+type: custom:simple-swipe-card
+view_mode: carousel
+card_min_width: 400
+card_spacing: 8
+show_pagination: false
+auto_hide_pagination: 0
+loop_mode: infinite
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: picture
+        image: /local/hue/raw/Blossom.png
+        tap_action:
+          action: call-service
+          service: input_text.set_value
+          data:
+            entity_id: input_text.dynamic_scene_selected
+            value: blossom
+      - type: picture
+        image: /local/hue/raw/Crocus.png
+        tap_action:
+          action: call-service
+          service: input_text.set_value
+          data:
+            entity_id: input_text.dynamic_scene_selected
+            value: crocus
+  - type: horizontal-stack
+    cards:
+      - type: picture
+        image: /local/hue/raw/Precious.png
+        tap_action:
+          action: call-service
+          service: input_text.set_value
+          data:
+            entity_id: input_text.dynamic_scene_selected
+            value: precious
+      - type: picture
+        image: /local/hue/raw/Narcissa.png
+        tap_action:
+          action: call-service
+          service: input_text.set_value
+          data:
+            entity_id: input_text.dynamic_scene_selected
+            value: narcissa
