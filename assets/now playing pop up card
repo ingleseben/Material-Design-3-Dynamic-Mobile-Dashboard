@@ -1,0 +1,51 @@
+type: vertical-stack
+cards:
+  - type: custom:bubble-card
+    card_type: pop-up
+    hash: "#music-player"
+    name: Music Player
+    icon: m3of:music-note
+    styles: |-
+      #root {
+              height: unset !important;
+              max-height: 100% !important;
+              transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+            }
+            .bubble-pop-up-container {
+              padding-bottom: 64px !important;
+              
+            }
+    button_type: name
+  - type: custom:mediocre-massive-media-player-card
+    entity_id: media_player.your_media_here
+    mode: card
+    action: {}
+    speaker_group:
+      entities:
+        - entity: media_player.living_area_soundbar
+          name: Living Area Soundbar
+        - entity: media_player.nestmini8699
+          name: Master Bedroom
+    search:
+      enabled: true
+      show_favorites: false
+    card_mod:
+      class: filled
+  - type: custom:bubble-card
+    card_type: separator
+    styles: |-
+      .bubble-icon,
+      .bubble-name {
+        display: none;
+      }
+      .bubble-line {
+        margin-right: 0;
+        height: 4px;
+        max-width: 32px;
+        opacity: 1;
+        background: var(--md-sys-color-on-surface-variant);
+      }
+      .bubble-separator {
+        height: min-content !important;
+        justify-content: center;
+      }
