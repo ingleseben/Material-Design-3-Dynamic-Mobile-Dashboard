@@ -1,0 +1,17 @@
+sequence:
+  - variables:
+      all_toggles:
+        - input_boolean.room_toggle_one_mobile
+        - input_boolean.room_toggle_two_mobile
+  - condition: template
+    value_template: "{{ is_state(current_toggle, 'on') }}"
+  - target:
+      entity_id: |
+        {{ all_toggles | reject('eq', current_toggle) | list }}
+    action: input_boolean.turn_off
+alias: Handle Room Toggle - Mobile
+mode: single
+fields:
+  current_toggle:
+    description: The toggle that was turned on
+description: ""
