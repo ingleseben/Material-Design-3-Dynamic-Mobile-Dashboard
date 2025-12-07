@@ -1,0 +1,13 @@
+alias: Room Automation Toggle - Mobile
+description: ""
+triggers:
+  - entity_id:
+      - input_boolean.room_toggle_one_mobile
+      - input_boolean.room_toggle_two_mobile
+    trigger: state
+conditions: []
+actions:
+  - data:
+      current_toggle: "{{ trigger.entity_id }}"
+    action: script.handle_room_toggle_mobile
+mode: single
