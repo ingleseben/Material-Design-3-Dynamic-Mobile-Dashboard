@@ -1,9 +1,47 @@
+# Weather Forecast Components
+
+- sensor:
+     - name: "Outdoor Temperature"
+       unique_id: outdoor_temperature
+       unit_of_measurement: "°C"
+       state: >
+          {{ state_attr('weather.home', 'temperature') }}
+       device_class: temperature
+
+     - name: "Outdoor Humidity"
+       unique_id: outdoor_humidity
+       unit_of_measurement: "%"
+       state: >
+          {{ state_attr('weather.home', 'humidity') }}
+       device_class: humidity
+
+     - name: "Rainfall Forecast Today"
+       unique_id: rainfall_forecast_today
+       state: >
+          {% set forecasts = state_attr('sensor.google_weather_hourly_forecasts_full_hourly_forecast','forecasts') %}
+          {% if forecasts %}
+            {% set total = forecasts | map(attribute='precipitation') | map('float') | sum %}
+            {% if total == 0 %}
+              none
+            {% elif total < 2.5 %}
+              light
+            {% elif total < 7.6 %}
+              moderate
+            {% elif total < 35 %}
+              heavy
+            {% else %}
+              very_heavy
+            {% endif %}
+          {% else %}
+            none
+          {% endif %}
+
 - sensor:
     - name: "Forecast UV Index"
       unique_id: forecast_uv_index
       unit_of_measurement: "UV"
       state: >
-        {% set f = state_attr('sensor.met_no_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
+        {% set f = state_attr('sensor.google_weather_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
         {% if f is sequence and f | count > 0 %}
           {{ f[0].uv_index }}
         {% else %}
@@ -14,7 +52,7 @@
       unique_id: forecast_cloud_coverage
       unit_of_measurement: "%"
       state: >
-        {% set f = state_attr('sensor.met_no_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
+        {% set f = state_attr('sensor.google_weather_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
         {% if f is sequence and f | count > 0 %}
           {{ f[0].cloud_coverage }}
         {% else %}
@@ -25,7 +63,7 @@
       unique_id: forecast_rainfall
       unit_of_measurement: "mm"
       state: >
-        {% set f = state_attr('sensor.met_no_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
+        {% set f = state_attr('sensor.google_weather_hourly_forecasts_full_hourly_forecast', 'forecasts') %}
         {% if f is sequence and f | count > 0 %}
           {{ f[0].precipitation }}
         {% else %}
@@ -36,16 +74,16 @@
       unique_id: forecast_wind_speed
       unit_of_measurement: "km/h"
       state: >
-        {{ state_attr('weather.forecast_home', 'wind_speed') }}
+        {{ state_attr('weather.home', 'wind_speed') }}
 
     - name: "Forecast Wind Direction"
       unique_id: forecast_wind_direction
       unit_of_measurement: "°"
       state: >
-        {{ state_attr('weather.forecast_home', 'wind_bearing') }}
+        {{ state_attr('weather.home', 'wind_bearing') }}
 
     - name: "Forecast Temperature"
       unique_id: forecast_temperature
       unit_of_measurement: "°C"
       state: >
-        {{ state_attr('weather.forecast_home', 'temperature') }}
+        {{ state_attr('weather.home', 'temperature') }}
