@@ -31,7 +31,7 @@ The Overview page gives you a quick view and control of what matters most. At th
 The page includes [three tabs: Home, Environment, and Active](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/assets/overview%20page%20tab).
 
 _Home Tab_
-The Home tab features cards designed for quick interaction. The first card shows indoor and outdoor temperatures with built-in climate controls in a clean, unified layout. Below this is a swipeable section where you can toggle room occupancy for climate control, room presence for lighting, and security cameras for quick on/off. These controls are used daily to interact with the backend automations. Underneath, there’s a “Now Playing” music card and a floating navigation bar. The calendar is hidden behind this bar and can be accessed by swiping on the screen.
+The Home tab features cards designed for quick interaction. The first card shows indoor and outdoor temperatures with built-in climate controls in a clean, unified layout. Below this is a swipeable section where you can toggle room occupancy for climate control, room presence for lighting, and security cameras for quick on/off. These controls are used daily to interact with the backend automations. Underneath, there’s a “Now Playing” music card and a [floating navigation bar](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/assets). The calendar is hidden behind this bar and can be accessed by swiping on the screen.
 
 _Environment Tab_
 The Environment tab provides a quick overview of temperature and humidity. Sensor statuses are represented with dynamic colors to make changes and alerts easy to spot.
