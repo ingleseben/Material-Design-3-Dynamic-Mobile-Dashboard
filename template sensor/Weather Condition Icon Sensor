@@ -1,10 +1,12 @@
 - sensor:
-    - name: "Weather Condition Icon"
-      unique_id: weather_condition_icon
-      state: >
-        {% set condition = states('weather.met_service_home_forecast') | lower %}
+     - name: "Weather Condition Icon"
+       unique_id: weather_condition_icon
+       state: >
+        {% set condition = states('weather.home') | lower %}
         {% if condition in ['sunny', 'clear'] %}
           mdi:weather-sunny
+        {% elif condition == 'clear-night' %}
+          mdi:weather-night
         {% elif condition in ['partlycloudy', 'partly cloudy'] %}
           mdi:weather-partly-cloudy
         {% elif condition == 'cloudy' %}
