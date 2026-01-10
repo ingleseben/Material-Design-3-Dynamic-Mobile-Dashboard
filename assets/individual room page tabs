@@ -9,76 +9,212 @@ tabs:
     card:
       type: vertical-stack
       cards:
-        - type: horizontal-stack
+        - type: custom:vertical-stack-in-card
           cards:
-            - type: custom:streamline-card
-              template: title_navigation_card
-              variables:
-                title: Lights
-                navigation_path: "#other-lights-la"
-            - type: custom:mushroom-chips-card
-              chips:
-                - type: template
-                  icon: mdi:television
-                  tap_action:
-                    action: navigate
-                    navigation_path: "#media-la"
-              alignment: end
-              card_mod:
-                style: |
-                  ha-card {
-                    margin-top: 1.6em
-                  }
-        - type: vertical-stack
-          cards:
-            - type: horizontal-stack
-              cards:
-                - type: custom:material-slider-card
-                  entity: light.lights_ktc
-                  icon: m3of:lightbulb
-                  show_percentage: true
-                  bold_text: false
-                  control_type: light
-                - type: custom:material-slider-card
-                  entity: light.lights_dt
-                  icon: m3of:lightbulb
-                  show_percentage: true
-                  bold_text: false
-                  control_type: light
-            - type: horizontal-stack
-              cards:
-                - type: custom:material-button-card
-                  use_default_icon: false
-                  entity: switch.kitchen_cabinet_led
-                  height: 97
-                  control_type: generic
-                  dual_icon: true
-                  icon_on: mdi:led-strip-variant
-                  icon_off: mdi:led-strip-variant-off
-                - type: custom:material-button-card
-                  use_default_icon: false
-                  entity: switch.table_top_light
-                  height: 97
-                  control_type: generic
-                  dual_icon: true
-                  icon_on: mdi:countertop
-                  icon_off: mdi:countertop-outline
-            - type: horizontal-stack
-              cards:
-                - type: custom:material-button-card
-                  use_default_icon: false
-                  entity: switch.table_top_led
-                  height: 97
-                  control_type: generic
-                  dual_icon: true
-                  icon_on: mdi:led-strip-variant
-                  icon_off: mdi:led-strip-variant-off
-                - type: custom:material-slider-card
-                  entity: light.lights_sofa
-                  icon: m3of:lightbulb
-                  show_percentage: true
-                  bold_text: false
-                  control_type: light
+            - type: conditional
+              conditions:
+                - condition: and
+                  conditions:
+                    - condition: state
+                      entity: input_boolean.other_lights_la
+                      state: "off"
+                    - condition: state
+                      entity: input_boolean.kitchen_la
+                      state: "off"
+                    - condition: state
+                      entity: input_boolean.media_la
+                      state: "off"
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:streamline-card
+                        template: title_card
+                        variables:
+                          title: Lights
+                      - type: custom:streamline-card
+                        template: room_nav_boolean_chip_card
+                        variables:
+                          button_one_icon: m3of:lightbulb
+                          button_two_icon: mdi:countertop
+                          button_three_icon: m3of:tv
+                          button_one: input_boolean.other_lights_la
+                          button_two: input_boolean.kitchen_la
+                          button_three: input_boolean.media_la
+                          alignment: end
+                          margin_top: 1.6em
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:material-slider-card
+                        entity: light.lights_ktc
+                        icon: m3of:lightbulb
+                        show_percentage: true
+                        bold_text: false
+                        control_type: light
+                      - type: custom:material-slider-card
+                        entity: light.lights_dt
+                        icon: m3of:lightbulb
+                        show_percentage: true
+                        bold_text: false
+                        control_type: light
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:material-button-card
+                        use_default_icon: false
+                        use_default_toggle: true
+                        use_default_text: true
+                        entity: switch.kitchen_cabinet_led
+                        height: 97
+                        control_type: generic
+                        dual_icon: true
+                        icon_on: mdi:led-strip-variant
+                        icon_off: mdi:led-strip-variant-off
+                      - type: custom:material-button-card
+                        use_default_icon: false
+                        use_default_toggle: true
+                        use_default_text: true
+                        entity: switch.table_top_light
+                        height: 97
+                        control_type: generic
+                        icon: m3of:countertops
+                        dual_icon: true
+                        icon_on: mdi:countertop
+                        icon_off: mdi:countertop-outline
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:material-button-card
+                        use_default_icon: false
+                        use_default_toggle: true
+                        use_default_text: true
+                        entity: switch.table_top_led
+                        height: 97
+                        control_type: generic
+                        dual_icon: true
+                        icon_on: mdi:led-strip-variant
+                        icon_off: mdi:led-strip-variant-off
+                      - type: custom:material-slider-card
+                        entity: light.lights_sofa
+                        icon: m3of:lightbulb
+                        show_percentage: true
+                        bold_text: false
+                        control_type: light
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.other_lights_la
+                  state: "on"
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:streamline-card
+                        template: title_card
+                        variables:
+                          title: Other Lights
+                      - type: custom:streamline-card
+                        template: room_nav_boolean_chip_card
+                        variables:
+                          button_one_icon: m3of:lightbulb
+                          button_two_icon: mdi:countertop
+                          button_three_icon: m3of:tv
+                          button_one: input_boolean.other_lights_la
+                          button_two: input_boolean.kitchen_la
+                          button_three: input_boolean.media_la
+                          alignment: end
+                          margin_top: 1.6em
+                  - type: custom:material-slider-card
+                    entity: light.light_scr
+                    icon: m3of:lightbulb
+                    show_percentage: true
+                    bold_text: false
+                    control_type: light
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:material-button-card
+                        use_default_icon: false
+                        use_default_toggle: true
+                        use_default_text: true
+                        entity: switch.patio_main_switch_la
+                        height: 97
+                        control_type: generic
+                        icon: mdi:outdoor-lamp
+                      - type: custom:material-button-card
+                        use_default_icon: false
+                        entity: switch.patio_side_switch_la
+                        height: 97
+                        control_type: generic
+                        icon: mdi:outdoor-lamp
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.kitchen_la
+                  state: "on"
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:streamline-card
+                        template: title_card
+                        variables:
+                          title: Rangehood
+                      - type: custom:streamline-card
+                        template: room_nav_boolean_chip_card
+                        variables:
+                          button_one_icon: m3of:lightbulb
+                          button_two_icon: mdi:countertop
+                          button_three_icon: m3of:tv
+                          button_one: input_boolean.other_lights_la
+                          button_two: input_boolean.kitchen_la
+                          button_three: input_boolean.media_la
+                          alignment: end
+                          margin_top: 1.6em
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:streamline-card
+                        template: select_card
+                        variables:
+                          entity: select.kitchen_rangehood_light_level
+                          name: Light Level
+                          icon: m3of:lightbulb
+                      - type: custom:streamline-card
+                        template: select_card
+                        variables:
+                          entity: select.kitchen_rangehood_fan_speed
+                          name: Fan Speed
+                          icon: mdi:fan
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.media_la
+                  state: "on"
+              card:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:streamline-card
+                        template: title_card
+                        variables:
+                          title: Media
+                      - type: custom:streamline-card
+                        template: room_nav_boolean_chip_card
+                        variables:
+                          button_one_icon: m3of:lightbulb
+                          button_two_icon: mdi:countertop
+                          button_three_icon: m3of:tv
+                          button_one: input_boolean.other_lights_la
+                          button_two: input_boolean.kitchen_la
+                          button_three: input_boolean.media_la
+                          alignment: end
+                          margin_top: 1.6em
+                  - type: custom:streamline-card
+                    template: media_player_card
+                    variables:
+                      entity: media_player.living_room_tv
+                      name: Living Room TV
   - title: Climate
     icon: m3of:heat-pump
     card:
@@ -89,23 +225,9 @@ tabs:
             - type: custom:streamline-card
               template: title_card
               variables:
-                - title: Climate Control
+                title: Control
             - type: custom:mushroom-chips-card
               chips:
-                - type: conditional
-                  conditions:
-                    - condition: numeric_state
-                      entity: sensor.climate_runtime_living_room
-                      above: 0
-                  chip:
-                    type: template
-                    entity: sensor.climate_runtime_living_room
-                    icon: mdi:chart-areaspline
-                    content: >-
-                      {% set val = states('sensor.climate_runtime_living_room')
-                      | float(0) %} {% set hours = val | int %} {% set minutes =
-                      ((val - hours) * 60) | round(0) | int %} {{ hours }}h {{
-                      minutes }}m
                 - type: template
                   entity: sensor.living_area_humidity
                   icon: mdi:water-percent
@@ -141,21 +263,38 @@ tabs:
           use_default_icon: true
           fix_temperature: auto
           name: " "
+        - type: custom:mushroom-template-card
+          primary: Climate Runtime
+          secondary: >-
+            {% set val = states('sensor.climate_runtime_living_room') | float(0)
+            %} {% set hours = val | int %} {% set minutes = ((val - hours) * 60)
+            | round(0) | int %} {{ hours }}h {{ minutes }}m
+          icon: mdi:chart-areaspline
+          entity: sensor.climate_runtime_living_room
+          icon_color: >-
+            {% set val = states('sensor.climate_runtime_living_room') | float(0)
+            %} {% if val > 4 %}
+              red
+            {% elif val > 2 %}
+              orange
+            {% else %}
+              green
+            {% endif %}
   - title: Active
     icon: m3of:play-circle
     conditions:
       - template: >-
           {{ is_state('group.windows_la', 'on') or is_state('group.doors_la',
-          'on')  or is_state('switch.rice_cooker_switch_ktc', 'on')}}
+          'on')}}
     card:
       type: vertical-stack
       cards:
         - type: custom:streamline-card
           template: open_doors_card
           variables:
-            - title: Doors
-            - door_1: binary_sensor.main_sliding_door_sensor_la_contact
-            - door_2: binary_sensor.side_sliding_door_sensor_la_contact
+            title: Doors
+            door_1: binary_sensor.main_sliding_door_sensor_la_contact
+            door_2: binary_sensor.side_sliding_door_sensor_la_contact
         - type: custom:streamline-card
           template: open_windows_card
           variables:
@@ -164,47 +303,3 @@ tabs:
             - window_2: binary_sensor.right_tv_window_sensor_la_contact
             - window_3: binary_sensor.left_sofa_window_sensor_la_contact
             - window_4: binary_sensor.right_sofa_window_sensor_la_contact
-        - type: conditional
-          conditions:
-            - condition: state
-              entity: media_player.living_area_soundbar
-              state: playing
-          card:
-            type: vertical-stack
-            cards:
-              - type: custom:streamline-card
-                template: title_card
-                variables:
-                  - title: Speaker
-              - type: custom:streamline-card
-                template: media_player_card
-                variables:
-                  - entity: media_player.living_area_soundbar
-                  - icon: m3of:play-circle
-                  - tap_action: more-info
-        - type: conditional
-          conditions:
-            - condition: or
-              conditions:
-                - condition: state
-                  entity: switch.rice_cooker_switch_ktc
-                  state: "on"
-          card:
-            type: custom:streamline-card
-            template: title_card
-            variables:
-              - title: Switch
-        - type: conditional
-          conditions:
-            - condition: state
-              entity: switch.rice_cooker_switch_ktc
-              state: "on"
-          card:
-            type: custom:material-button-card
-            use_default_icon: false
-            use_default_toggle: true
-            use_default_text: true
-            entity: switch.rice_cooker_switch_ktc
-            icon: m3of:rice-bowl
-            height: 97
-            control_type: generic
