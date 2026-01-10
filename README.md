@@ -193,6 +193,8 @@ Weather Related:
   
 ![Transparent Card](https://github.com/user-attachments/assets/7d0e3895-edd7-4cd3-88a0-e56f2dbc1ab5)
 
+- Apply [wallpaper](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/wallpapers/dark) (optional) and see the [example code](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/wallpapers/dark/Wallpaper%20code) to apply it correctly 
+
 - Enjoy your personalized dynamic dashboard! 🎉
 
 - Set the companion app to full screen (optional)
