@@ -452,6 +452,11 @@ tabs:
                 --simple-swipe-card-pagination-dot-inactive-color: var(--md-sys-color-on-tertiary);
                 --simple-swipe-card-pagination-dot-size: 7px;
               }
+  - title: Events
+    icon: mdi:calendar
+    card:
+      type: vertical-stack
+      cards:
         - entities:
             - entity: calendar.calendar_1
               accent_color: "#ff6a6a"
@@ -499,155 +504,14 @@ tabs:
           tap_action:
             action: expand
           type: custom:calendar-card-pro
-  - title: Environment
-    icon: mdi:weather-partly-cloudy
-    card:
-      type: horizontal-stack
-      cards:
-        - type: vertical-stack
-          cards:
-            - type: custom:streamline-card
-              template: title_card
-              variables:
-                - title: Temperature
-            - type: custom:vertical-stack-in-card
-              cards:
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.outdoor_temperature
-                    - name: Outdoor
-                    - icon: mdi:weather-partly-cloudy
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.living_room_temperature
-                    - name: Living
-                    - icon: mdi:sofa
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.master_bedroom_temperature
-                    - name: Master
-                    - icon: m3of:bed
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.baby_room_temperature
-                    - name: Baby
-                    - icon: m3of:stroller
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.single_guest_room_temperature
-                    - name: Single
-                    - icon: m3of:person-3
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.multiple_guest_room_temperature
-                    - name: Multiple
-                    - icon: m3of:groups-2
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.office_room_temperature
-                    - name: Office
-                    - icon: m3of:computer
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.guest_bathroom_temperature
-                    - name: Guest Bath
-                    - icon: mdi:water
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.garage_temperature
-                    - name: Garage
-                    - icon: mdi:garage-variant
-                - type: custom:streamline-card
-                  template: temperature_entity_card
-                  variables:
-                    - entity: sensor.attic_temperature
-                    - name: Attic
-                    - icon: m3of:roofing
-        - type: vertical-stack
-          cards:
-            - type: custom:streamline-card
-              template: title_card
-              variables:
-                - title: Humidity
-            - type: custom:vertical-stack-in-card
-              cards:
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.outdoor_humidity
-                    - name: Outdoor
-                    - icon: mdi:weather-partly-cloudy
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.living_area_humidity
-                    - name: Living
-                    - icon: mdi:sofa
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.master_bedroom_humidity
-                    - name: Master
-                    - icon: m3of:bed
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.baby_room_humidity
-                    - name: Baby
-                    - icon: m3of:stroller
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.single_guest_room_humidity
-                    - name: Single
-                    - icon: m3of:person-3
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.multiple_guest_room_humidity
-                    - name: Multiple
-                    - icon: m3of:groups-2
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.office_room_humidity
-                    - name: Office
-                    - icon: m3of:computer
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.guest_bathroom_humidity
-                    - name: Guest Bath
-                    - icon: mdi:water
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.garage_humidity
-                    - name: Garage
-                    - icon: mdi:garage-variant
-                - type: custom:streamline-card
-                  template: humidity_entity_card
-                  variables:
-                    - entity: sensor.attic_humidity
-                    - name: Attic
-                    - icon: m3of:roofing
   - title: Active
     icon: m3of:play-circle
     conditions:
       - template: >-
           {{ is_state('switch.all_light_switches', 'on') or
-          is_state('light.all_lights', 'on') or  is_state('fan.all_fans', 'on')
-          or is_state('group.all_doors', 'on') or is_state('group.al_windows',
-          'on') }}
+          is_state('light.all_lights', 'on') or  is_state('group.all_fans',
+          'on') or is_state('group.all_doors', 'on') or
+          is_state('group.all_windows', 'on') or is_state('group.all_curtains', 'open') }}
     card:
       type: vertical-stack
       cards:
@@ -816,6 +680,32 @@ tabs:
                   control_type: generic
                   icon: mdi:fan
             exclude: []
+          show_empty: false
+          sort:
+            method: friendly_name
+        - type: custom:streamline-card
+          template: entity_count_card
+          variables:
+            entity: group.all_curtains
+            title: Curtains
+            icon: m3of:curtains
+            color: "#702963"
+        - type: custom:auto-entities
+          card:
+            square: false
+            type: grid
+            columns: 2
+          card_param: cards
+          filter:
+            include:
+              - group: group.all_curtains
+                state: open
+                options:
+                  type: custom:streamline-card
+                  template: curtain_slider_card
+                  variables:
+                    entity: this.entity_id
+          exclude: []
           show_empty: false
           sort:
             method: friendly_name
