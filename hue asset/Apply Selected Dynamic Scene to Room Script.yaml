@@ -14,19 +14,21 @@ fields:
     description: Input text to track what scene is running in the room
     example: input_text.sofa_dynamic_scene_active
 sequence:
+  - alias: Disable presence automation for the room
+    action: homeassistant.turn_off
+    data:
+      entity_id: "{{ presence_automation }}"
+  - delay:
+      milliseconds: 500
   - alias: Set active scene tracker for the room
+    action: input_text.set_value
     data:
       entity_id: "{{ room_scene_tracker }}"
       value: "{{ states('input_text.dynamic_scene_selected') }}"
-    action: input_text.set_value
   - alias: Turn on visual boolean (for chip styling)
+    action: homeassistant.turn_on
     data:
       entity_id: "{{ room_boolean }}"
-    action: homeassistant.turn_on
-  - alias: Toggle presence automation for the room
-    data:
-      entity_id: "{{ presence_automation }}"
-    action: homeassistant.toggle
   - alias: Load currently selected scene from input_text
     variables:
       selected_scene: "{{ states('input_text.dynamic_scene_selected') | lower }}"
@@ -95,7 +97,8 @@ sequence:
           'lovebirds': 'f1f5f209-ffcb-4734-8567-0819a2885214',
           'smitten': 'a65a2815-52fb-4748-8e02-b607f96f70ea',
           'promise': '68d97db1-eb52-4c03-8afc-eed5df30c417'
-        } %} {{ scene_map.get(selected_scene, 'default-preset-id') }}
+        } %}
+        {{ scene_map.get(selected_scene, 'default-preset-id') }}
       brightness: >-
         {{ (states('input_number.dynamic_scene_brightness') | float * 2.55) |
         round(0) | int }}
