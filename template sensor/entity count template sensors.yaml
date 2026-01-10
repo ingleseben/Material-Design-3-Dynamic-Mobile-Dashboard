@@ -1,0 +1,9 @@
+- sensor:
+    - name: "Lights LA Count"
+      state: "{{ expand('light.lights_la') | selectattr('state', 'eq', 'on') | list | count }}"
+
+    - name: "Windows LA Count"
+      state: "{{ expand('group.windows_la') | selectattr('state', 'eq', 'on') | list | count }}"
+
+    - name: "Doors LA Count"
+      state: "{{ expand('group.doors_la') | selectattr('state', 'eq', 'on') | list | count }}"
