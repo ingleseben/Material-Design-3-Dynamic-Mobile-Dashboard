@@ -1,11 +1,63 @@
-type: horizontal-stack
+type: custom:stack-in-card
+mode: vertical
 cards:
   - type: custom:streamline-card
     template: date_clock_text_card
     variables:
-      - subtitle: "{{ now().strftime('%a %b %-d - %I:%M %p') }}"
+      - title: "{{ now().strftime('%a %b %-d - %I:%M %p') }}"
   - type: custom:mushroom-chips-card
     chips:
+      - type: conditional
+        conditions:
+          - condition: numeric_state
+            entity: sensor.geonet_nz_quakes_x_y
+            above: 0
+        chip:
+          type: template
+          entity: sensor.geonet_nz_quakes_x_y
+          tap_action:
+            action: navigate
+            navigation_path: "#weather-panel"
+          icon: m3of:globe-location-pin
+          icon_color: >
+            {% set mag = state_attr('sensor.latest_nearby_quake', 'magnitude') |
+            float(0) %} {% if mag >= 6.0 %} #D32F2F {% elif mag >= 5.0 %}
+            #F4511E {% elif mag >= 4.0 %} #FB8C00 {% elif mag >= 3.0 %} #F9A825
+            {% elif mag >= 2.0 %} #FBC02D {% else %} #388E3C {% endif %}
+      - type: conditional
+        conditions:
+          - condition: numeric_state
+            entity: sensor.volcano_rotorua
+            above: 0
+        chip:
+          type: template
+          entity: sensor.volcano_rotorua
+          tap_action:
+            action: navigate
+            navigation_path: "#volcano-warning"
+          icon: m3of:mountain-steam
+          icon_color: |
+            {% set level = states('sensor.volcano_rotorua') | int %}
+            {% if level == 5 %} red
+            {% elif level == 4 %} deep-orange
+            {% elif level == 3 %} orange
+            {% elif level == 2 %} amber
+            {% elif level == 1 %} yellow
+            {% else %} green
+            {% endif %}
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: sensor.home_metservice_weather_warnings
+            state_not: unknown
+        chip:
+          type: template
+          entity: sensor.home_metservice_weather_warnings
+          tap_action:
+            action: navigate
+            navigation_path: "#weather-panel"
+          icon: m3of:warning
+          icon_color: orange
       - type: conditional
         conditions:
           - entity: alarm_control_panel.alarmo
@@ -26,7 +78,7 @@ cards:
         chip:
           type: template
           entity: alarm_control_panel.alarmo
-          content: Armed away
+          content: Armed
           tap_action:
             action: navigate
             navigation_path: "#alarmo"
@@ -95,8 +147,8 @@ cards:
               position: absolute;
               top: -3px;
               right: -3px;
-              background-color: var(--md-sys-color-primary);
-              color: var(--md-sys-color-on-primary);
+              background-color: var(--md-sys-color-on-primary);
+              color: var(--md-sys-color-primary);
               border-radius: 50%;
               width: 16px;
               height: 16px;
@@ -106,9 +158,10 @@ cards:
               display: inline-block;
               font-weight: bold;
             } {% endif %}
-    alignment: end
     card_mod:
       style: |
         ha-card {
-          margin-top: 1.2em
+          position: absolute;
+          top: 20px;
+          right: 5px;
         }
