@@ -33,22 +33,33 @@ cards:
       - layout: name|icon
         entity: weather.home
         name: >-
-          {{ state_attr('weather.home', 'temperature') }} {{
-          state_attr('weather.home', 'temperature_unit') }}, {{
-          states('weather.home') | title }}
-        icon: "{{ states('sensor.weather_condition_icon') }}"
+          {% set temp = state_attr('weather.home', 'temperature') %} {% set unit
+          = state_attr('weather.home', 'temperature_unit') %} {% set condition =
+          states('weather.home') | title %} {% if
+          is_state('binary_sensor.outdoor_rain_sensor_water_leak', 'on') %}
+            {{ temp }} {{ unit }}, Raining
+          {% else %}
+            {{ temp }} {{ unit }}, {{ condition }}
+          {% endif %}
+        icon: >-
+          {% if is_state('binary_sensor.outdoor_rain_sensor_water_leak', 'on')
+          %}
+            mdi:weather-pouring
+          {% else %}
+            {{ states('sensor.weather_condition_icon') }}
+          {% endif %}
         tap_action:
           action: navigate
           navigation_path: "#weather-panel"
         styles:
           icon:
-            color: var(--md-sys-color-on-primary)
+            color: var(--md-sys-color-primary)
           name:
-            color: var(--md-sys-color-on-primary)
+            color: var(--md-sys-color-primary)
             font-weight: bold
           button:
             padding: 2px 8px
-            background-color: var(--md-sys-color-primary)
+            background-color: var(--md-sys-color-on-primary)
             border-radius: 24px
             flex-basis: 1
             flex-shrink: 0
@@ -73,11 +84,11 @@ cards:
           navigation_path: "#weather-panel"
         styles:
           name:
-            color: var(--md-sys-color-on-primary)
+            color: var(--md-sys-color-primary)
             font-weight: bold
           button:
             padding: 2px 8px
-            background-color: var(--md-sys-color-primary)
+            background-color: var(--md-sys-color-on-primary)
             border-radius: 24px
             flex-basis: 1
             flex-shrink: 0
@@ -108,11 +119,11 @@ cards:
           navigation_path: "#weather-panel"
         styles:
           name:
-            color: var(--md-sys-color-on-primary)
+            color: var(--md-sys-color-primary)
             font-weight: bold
           button:
             padding: 2px 8px
-            background-color: var(--md-sys-color-primary)
+            background-color: var(--md-sys-color-on-primary)
             border-radius: 24px
             flex-basis: 1
             flex-shrink: 0
@@ -143,11 +154,11 @@ cards:
           navigation_path: "#weather-panel"
         styles:
           name:
-            color: var(--md-sys-color-on-primary)
+            color: var(--md-sys-color-primary)
             font-weight: bold
           button:
             padding: 2px 8px
-            background-color: var(--md-sys-color-primary)
+            background-color: var(--md-sys-color-on-primary)
             border-radius: 24px
             flex-basis: 1
             flex-shrink: 0
