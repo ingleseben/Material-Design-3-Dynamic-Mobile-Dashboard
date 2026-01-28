@@ -1,7 +1,7 @@
 type: custom:simple-tabs
 pre-load: true
-active-background: var(--md-sys-color-tertiary)
-active-text-color: var(--md-sys-color-on-tertiary)
+active-background: var(--md-sys-color-on-primary)
+active-text-color: var(--md-sys-color-primary)
 text-color: var(--primary-text-color)
 tabs:
   - title: Home
@@ -145,326 +145,315 @@ tabs:
                     - heat
                     - fan_only
                     - "off"
-        - type: custom:simple-swipe-card
-          auto_hide_pagination: 0
-          auto_height: true
-          cards:
-            - type: custom:vertical-stack-in-card
+            - type: custom:simple-swipe-card
+              auto_hide_pagination: 0
+              auto_height: true
               cards:
-                - type: custom:mushroom-template-card
-                  tap_action:
-                    action: none
-                  hold_action:
-                    action: none
-                  double_tap_action:
-                    action: none
-                  primary: |-
-                    Room Occupancy  -   {% set disabled = [
-                          is_state('input_boolean.baby_room_occupancy', 'off'),
-                          is_state('input_boolean.master_bedroom_occupancy', 'off'),
-                          is_state('input_boolean.single_guest_room_occupancy', 'off'),
-                          is_state('input_boolean.multiple_guest_room_occupancy', 'off'),
-
-                    is_state('input_boolean.play_room_occupancy', 'off')
-                        ] | select('eq', true) | list | count %}
-                        {% if disabled == 0 %}
-                          All rooms active
-                        {% elif disabled == 1 %}
-                          1 room disabled
-                        {% else %}
-                          {{ disabled }} rooms disabled
-                        {% endif %}
-                  features_position: bottom
-                - type: custom:mushroom-chips-card
-                  chips:
-                    - type: template
-                      entity: input_boolean.baby_room_occupancy
-                      icon: m3of:stroller
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                          #f385bc
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}    
+                - type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:button-card
+                      entity: sensor.disabled_room_occupancy_count
+                      name: Room Occupancy
+                      show_state: false
+                      show_icon: false
+                      show_label: true
+                      label: |-
+                        [[[ 
+                          const disabled = parseInt(entity.state);
+                          if (disabled === 0) return 'All rooms active';
+                          if (disabled === 1) return '1 room disabled';
+                          return `${disabled} rooms disabled`;
+                        ]]]
+                      styles:
+                        card:
+                          - background: >-
+                              var(--ha-card-background,
+                              var(--card-background-color, white))
+                          - border-radius: var(--ha-card-border-radius, 12px)
+                          - padding: 12px
+                        name:
+                          - text-align: center
+                          - font-size: 16px
+                          - font-weight: bold
+                        label:
+                          - text-align: center
+                          - font-size: 14px
+                          - color: var(--secondary-text-color)
                       tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Baby
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: input_boolean.master_bedroom_occupancy
-                      icon: m3of:bed
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                          #89CFF0
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
+                        action: none
+                    - type: custom:mushroom-chips-card
+                      alignment: center
+                      chips:
+                        - type: template
+                          entity: input_boolean.baby_room_occupancy
+                          icon: m3of:stroller
+                          icon_color: >-
+                            {% if is_state(entity, 'on') %}#f385bc{% else
+                            %}var(--primary-text-color){% endif %}
+                          tap_action:
+                            action: toggle
+                          content: "{% if is_state(entity, 'on') %}Baby{% endif %}"
+                        - type: template
+                          entity: input_boolean.master_bedroom_occupancy
+                          icon: m3of:bed
+                          icon_color: >-
+                            {% if is_state(entity, 'on') %}#89CFF0{% else
+                            %}var(--primary-text-color){% endif %}
+                          tap_action:
+                            action: toggle
+                          content: "{% if is_state(entity, 'on') %}Master{% endif %}"
+                        - type: template
+                          entity: input_boolean.single_guest_room_occupancy
+                          icon: m3of:person-3
+                          icon_color: >-
+                            {% if is_state(entity, 'on') %}#FFA500{% else
+                            %}var(--primary-text-color){% endif %}
+                          tap_action:
+                            action: toggle
+                          content: "{% if is_state(entity, 'on') %}Single{% endif %}"
+                        - type: template
+                          entity: input_boolean.multiple_guest_room_occupancy
+                          icon: m3of:groups-2
+                          icon_color: >-
+                            {% if is_state(entity, 'on') %}#A52A2A{% else
+                            %}var(--primary-text-color){% endif %}
+                          tap_action:
+                            action: toggle
+                          content: "{% if is_state(entity, 'on') %}Multiple{% endif %}"
+                        - type: template
+                          entity: input_boolean.play_room_occupancy
+                          icon: mdi:gamepad-variant
+                          icon_color: >-
+                            {% if is_state(entity, 'on') %}#9F2B68{% else
+                            %}var(--primary-text-color){% endif %}
+                          tap_action:
+                            action: toggle
+                          content: "{% if is_state(entity, 'on') %}Play{% endif %}"
+                    - type: custom:streamline-card
+                      template: spacer_card
+                      variables:
+                        padding: 20px
+                - type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:button-card
+                      entity: sensor.disabled_presence_automation_count
+                      name: Presence Status
+                      show_state: false
+                      show_icon: false
+                      show_label: true
+                      label: |-
+                        [[[ 
+                          const disabled = parseInt(entity.state);
+                          if (disabled === 0) return 'All rooms active';
+                          if (disabled === 1) return '1 room disabled';
+                          return `${disabled} rooms disabled`;
+                        ]]]
+                      styles:
+                        card:
+                          - background: >-
+                              var(--ha-card-background,
+                              var(--card-background-color, white))
+                          - border-radius: var(--ha-card-border-radius, 12px)
+                          - padding: 12px
+                        name:
+                          - text-align: center
+                          - font-size: 16px
+                          - font-weight: bold
+                        label:
+                          - text-align: center
+                          - font-size: 14px
+                          - color: var(--secondary-text-color)
                       tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Master
-                        {% else %}
-                        {% endif %}            
-                    - type: template
-                      entity: input_boolean.single_guest_room_occupancy
-                      icon: m3of:person-3
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                          #FFA500
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
+                        action: none
+                      features_position: bottom
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          entity: binary_sensor.presence_active_la
+                          icon: mdi:sofa
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: perform-action
+                            perform_action: script.toggle_presence_sensor_la
+                            target: {}
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Living
+                            {% else %}
+                            {% endif %}
+                        - type: template
+                          entity: automation.room_presence_master_bedroom
+                          icon: m3of:bed
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Master
+                            {% else %}
+                            {% endif %}
+                        - type: template
+                          entity: automation.room_presence_baby_room
+                          icon: m3of:stroller
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Baby
+                            {% else %}
+                            {% endif %}      
+                        - type: template
+                          entity: automation.room_presence_single_guest_room
+                          icon: m3of:person-3
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Single
+                            {% else %}
+                            {% endif %}
+                        - type: template
+                          entity: automation.room_presence_multiple_guest_room
+                          icon: m3of:groups-2
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Multiple
+                            {% else %}
+                            {% endif %}
+                        - type: template
+                          entity: automation.room_presence_office
+                          icon: m3of:computer
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Office
+                            {% else %}
+                            {% endif %}
+                      alignment: center
+                    - type: custom:streamline-card
+                      template: spacer_card
+                      variables:
+                        padding: 20px
+                - type: custom:vertical-stack-in-card
+                  cards:
+                    - type: custom:button-card
+                      entity: sensor.disabled_driveway_camera_count
+                      name: Driveway Security
+                      show_state: false
+                      show_icon: false
+                      show_label: true
+                      label: |-
+                        [[[ 
+                          const disabled = parseInt(entity.state);
+                          if (disabled === 0) return 'All cameras active';
+                          if (disabled === 1) return '1 camera disabled';
+                          return `${disabled} cameras disabled`;
+                        ]]]
+                      styles:
+                        card:
+                          - background: >-
+                              var(--ha-card-background,
+                              var(--card-background-color, white))
+                          - border-radius: var(--ha-card-border-radius, 12px)
+                          - padding: 12px
+                        name:
+                          - text-align: center
+                          - font-size: 16px
+                          - font-weight: bold
+                        label:
+                          - text-align: center
+                          - font-size: 14px
+                          - color: var(--secondary-text-color)
                       tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Single
-                        {% else %}
-                        {% endif %}     
-                    - type: template
-                      entity: input_boolean.multiple_guest_room_occupancy
-                      icon: m3of:groups-2
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                          #A52A2A
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Multiple
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: input_boolean.play_room_occupancy
-                      icon: mdi:gamepad-variant
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                          #9F2B68
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Play
-                        {% else %}
-                        {% endif %}      
-                  alignment: start
-                - type: custom:streamline-card
-                  template: spacer_card
-                  variables:
-                    padding: 20px
-            - type: custom:vertical-stack-in-card
-              cards:
-                - type: custom:mushroom-template-card
-                  primary: |-
-                    Presence Status  -   {% set disabled = [
-                          is_state('automation.room_presence_master_bedroom', 'off'),
-                          is_state('automation.room_presence_baby_room', 'off'),
-                          is_state('automation.room_presence_single_guest_room', 'off'),
-                          is_state('automation.room_presence_multiple_guest_room', 'off'),
-                          is_state('automation.room_presence_office', 'off')
-                        ] | select('eq', true) | list | count %}
-                        {% if disabled == 0 %}
-                          All rooms active
-                        {% elif disabled == 1 %}
-                          1 room disabled
-                        {% else %}
-                          {{ disabled }} rooms disabled
-                        {% endif %}
-                  tap_action:
-                    action: none
-                  hold_action:
-                    action: none
-                  double_tap_action:
-                    action: none
-                  features_position: bottom
-                - type: custom:mushroom-chips-card
-                  chips:
-                    - type: template
-                      entity: binary_sensor.presence_active_la
-                      icon: mdi:sofa
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: perform-action
-                        perform_action: script.toggle_presence_sensor_la
-                        target: {}
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Living
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: automation.room_presence_master_bedroom
-                      icon: m3of:bed
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Master
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: automation.room_presence_baby_room
-                      icon: m3of:stroller
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Baby
-                        {% else %}
-                        {% endif %}      
-                    - type: template
-                      entity: automation.room_presence_single_guest_room
-                      icon: m3of:person-3
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Single
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: automation.room_presence_multiple_guest_room
-                      icon: m3of:groups-2
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Multiple
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: automation.room_presence_office
-                      icon: m3of:computer
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Office
-                        {% else %}
-                        {% endif %}
-                  alignment: start
-                - type: custom:streamline-card
-                  template: spacer_card
-                  variables:
-                    padding: 20px
-            - type: custom:vertical-stack-in-card
-              cards:
-                - type: custom:mushroom-template-card
-                  primary: |-
-                    Driveway Security  -   {% set disabled = [
-                          is_state('automation.right_driveway_camera_person_notification', 'off'),
-                          is_state('automation.right_driveway_camera_vehicle_notification', 'off')
-                        ] | select('eq', true) | list | count %}
-                        {% if disabled == 0 %}
-                          All cameras active
-                        {% elif disabled == 1 %}
-                          1 camera disabled
-                        {% else %}
-                          {{ disabled }} cameras disabled
-                        {% endif %}
-                  tap_action:
-                    action: none
-                  hold_action:
-                    action: none
-                  double_tap_action:
-                    action: none
-                  features_position: bottom
-                - type: custom:mushroom-chips-card
-                  chips:
-                    - type: template
-                      entity: automation.right_driveway_camera_person_notification
-                      icon: mdi:account
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Person
-                        {% else %}
-                        {% endif %}
-                    - type: template
-                      entity: automation.right_driveway_camera_vehicle_notification
-                      icon: mdi:car
-                      icon_color: |-
-                        {% if is_state(entity, 'on') %} 
-                        {% else %}
-                         var(--primary-text-color)
-                        {% endif %}
-                      tap_action:
-                        action: toggle
-                      content: |-
-                        {% if is_state(entity, 'on') %} 
-                          Vehicle
-                        {% else %}
-                        {% endif %}
-                  alignment: start
-                - type: custom:streamline-card
-                  template: spacer_card
-                  variables:
-                    padding: 20px
-          card_mod:
-            style: |
-              :host {
-                --simple-swipe-card-pagination-dot-active-color: var(--md-sys-color-tertiary);
-                --simple-swipe-card-pagination-dot-inactive-color: var(--md-sys-color-on-tertiary);
-                --simple-swipe-card-pagination-dot-size: 7px;
-              }
+                        action: none
+                    - type: custom:mushroom-chips-card
+                      chips:
+                        - type: template
+                          entity: automation.driveway_camera_person_notification
+                          icon: mdi:account
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Person
+                            {% else %}
+                            {% endif %}
+                        - type: template
+                          entity: automation.driveway_camera_vehicle_notification
+                          icon: mdi:car
+                          icon_color: |-
+                            {% if is_state(entity, 'on') %} 
+                            {% else %}
+                             var(--primary-text-color)
+                            {% endif %}
+                          tap_action:
+                            action: toggle
+                          content: |-
+                            {% if is_state(entity, 'on') %} 
+                              Vehicle
+                            {% else %}
+                            {% endif %}
+                      alignment: center
+                    - type: custom:streamline-card
+                      template: spacer_card
+                      variables:
+                        padding: 20px
+              card_mod:
+                style: |
+                  :host {
+                    --simple-swipe-card-pagination-dot-active-color: var(--md-sys-color-primary);
+                    --simple-swipe-card-pagination-dot-inactive-color: var(--md-sys-color-on-primary);
+                    --simple-swipe-card-pagination-dot-size: 7px;
+                  }
   - title: Events
     icon: mdi:calendar
     card:
       type: vertical-stack
       cards:
         - entities:
-            - entity: calendar.calendar_1
+            - entity: calendar.a
               accent_color: "#ff6a6a"
-            - entity: calendar.calendar_2
+            - entity: calendar.b
               accent_color: "#71c8fe"
-            - entity: calendar.calendar_3
+            - entity: calendar.house_maintenance
               accent_color: "#d3f37f"
-            - entity: calendar.calendar_4
+            - entity: calendar.new_zealand_holidays
               accent_color: "#f9da4e"
           days_to_show: 10
           compact_events_to_show: 10
@@ -476,7 +465,7 @@ tabs:
           week_number_color: var(--md-sys-color-on-primary)
           week_number_background_color: var(--md-sys-color-primary)
           month_separator_width: 1px
-          month_separator_color: var(--md-sys-color-tertiary)
+          month_separator_color: var(--md-sys-color-primary)
           today_indicator: pulse
           today_indicator_position: 10% 50%
           today_indicator_color: var(--md-sys-color-primary)
@@ -511,7 +500,7 @@ tabs:
           {{ is_state('switch.all_light_switches', 'on') or
           is_state('light.all_lights', 'on') or  is_state('group.all_fans',
           'on') or is_state('group.all_doors', 'on') or
-          is_state('group.all_windows', 'on') or is_state('group.all_curtains', 'open') }}
+          is_state('group.all_windows', 'on') }}
     card:
       type: vertical-stack
       cards:
@@ -531,24 +520,12 @@ tabs:
           filter:
             include:
               - group: light.all_lights
-                entity_id: "*lights*"
                 state: "on"
                 options:
-                  type: custom:material-slider-card
-                  entity: this.entity_id
-                  show_percentage: true
-                  bold_text: false
-                  control_type: light
-              - group: light.all_lights
-                entity_id: "*led*"
-                state: "on"
-                options:
-                  type: custom:material-slider-card
-                  entity: this.entity_id
-                  icon: mdi:led-strip-variant
-                  show_percentage: true
-                  bold_text: false
-                  control_type: light
+                  type: custom:streamline-card
+                  template: material_light_slider_card
+                  variables:
+                    entity: this.entity_id
             exclude: []
           show_empty: false
           sort:
@@ -557,7 +534,7 @@ tabs:
           template: entity_count_card
           variables:
             - entity: group.all_light_switches
-            - title: Lights Switches
+            - title: Switches
             - icon: m3of:switch
             - color: var(--primary-text-color)
         - type: custom:auto-entities
@@ -569,20 +546,12 @@ tabs:
           filter:
             include:
               - group: group.all_light_switches
-                entity_id: "*switch*"
                 state: "on"
                 options:
-                  type: custom:material-button-card
-                  use_default_icon: false
-                  use_default_toggle: true
-                  use_default_text: true
-                  entity: this.entity_id
-                  icon: m3of:lightbulb
-                  height: 97
-                  control_type: generic
-                  dual_icon: true
-                  icon_on: m3of:lightbulb
-                  icon_off: m3of:light-off
+                  type: custom:streamline-card
+                  template: material_light_button_card
+                  variables:
+                    entity: this.entity_id
             exclude: []
           show_empty: false
           sort:
@@ -592,7 +561,7 @@ tabs:
           variables:
             - entity: group.all_doors
             - title: Doors
-            - icon: m3o:door-open
+            - icon: m3of:door-open
             - color: "#bc000a"
         - type: custom:auto-entities
           card:
@@ -605,17 +574,11 @@ tabs:
               - group: group.all_doors
                 state: "on"
                 options:
-                  type: custom:material-button-card
-                  use_default_icon: false
-                  use_default_toggle: true
-                  use_default_text: false
-                  se_default_text: true
-                  entity: this.entity_id
-                  height: 97
-                  control_type: generic
-                  icon: m3of:door-open
-                  text_on: Open
-                  text_off: Closed
+                  type: custom:streamline-card
+                  template: material_custom_icon_with_status_button_card
+                  variables:
+                    entity: this.entity_id
+                    icon: m3of:door-open
             exclude: []
           show_empty: false
           sort:
@@ -625,7 +588,7 @@ tabs:
           variables:
             - entity: group.all_windows
             - title: Windows
-            - icon: m3o:window-open
+            - icon: m3of:window-open
             - color: "#ffaa00"
         - type: custom:auto-entities
           card:
@@ -638,17 +601,11 @@ tabs:
               - group: group.all_windows
                 state: "on"
                 options:
-                  type: custom:material-button-card
-                  use_default_icon: false
-                  use_default_toggle: true
-                  use_default_text: false
-                  se_default_text: true
-                  entity: this.entity_id
-                  height: 97
-                  control_type: generic
-                  icon: m3of:window-open
-                  text_on: Open
-                  text_off: Closed
+                  type: custom:streamline-card
+                  template: material_custom_icon_with_status_button_card
+                  variables:
+                    entity: this.entity_id
+                    icon: m3of:window-open
             exclude: []
           show_empty: false
           sort:
@@ -656,7 +613,7 @@ tabs:
         - type: custom:streamline-card
           template: entity_count_card
           variables:
-            - entity: fan.all_fans
+            - entity: group.all_fans
             - title: Fans
             - icon: mdi:fan
             - color: "#ADD8E6"
@@ -668,17 +625,14 @@ tabs:
           card_param: cards
           filter:
             include:
-              - group: fan.all_fans
+              - group: group.all_fans
                 state: "on"
                 options:
-                  type: custom:material-button-card
-                  use_default_icon: false
-                  use_default_toggle: true
-                  use_default_text: true
-                  entity: this.entity_id
-                  height: 97
-                  control_type: generic
-                  icon: mdi:fan
+                  type: custom:streamline-card
+                  template: material_custom_icon_button_card
+                  variables:
+                    entity: this.entity_id
+                    icon: mdi:fan
             exclude: []
           show_empty: false
           sort:
@@ -702,10 +656,11 @@ tabs:
                 state: open
                 options:
                   type: custom:streamline-card
-                  template: curtain_slider_card
+                  template: curtain_card
                   variables:
                     entity: this.entity_id
           exclude: []
           show_empty: false
           sort:
             method: friendly_name
+hide_inactive_tab_titles: false
