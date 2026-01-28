@@ -4,8 +4,9 @@ This comprehensive dashboard unifies control and monitoring for **lights, switch
 
 This update aligns the mobile experience with the previously shared tablet layout, using the same updated structures and design patterns.
 
-[_The new v4.1.0_ ](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/releases/tag/v4.1.0)focuses on "under-the-hood" optimization and some UI changes to make the daily experience faster and more intuitive. I’ve also decluttered the layout by re-introducing expander cards and switching to a smart popup navigation system, which keeps advanced room controls tucked away until they are actually needed.
-I have updated the [streamline_templates](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/assets) and added & removed parts to match the newest version I use. You can use it as a solid starting point to build and tailor your dashboard to your specific requirements.
+[_v4.2.0 release_](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/releases/tag/v4.2.0) focuses on visual flexibility and customization. With full dark and light mode support, refreshed wallpapers, and improved color logic across buttons and chip cards, the dashboard now adapts more naturally to different themes. We’ve also expanded streamline_templates to give you more control over icons and states when customizing your setup.
+
+I have also readded the _[full dashboard yaml](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/dashboard.yaml)_, one of the most requested feature over the communities.
 
 # ✨ Features
 
@@ -23,7 +24,7 @@ Several cards are inspired by the incredible work of others in the Home Assistan
 
 # 🖼️ Dashboard Walkthrough
 
-<img width="1920" height="1080" alt="1" src="https://github.com/user-attachments/assets/648a3604-aab8-4b9d-8882-8ec5d11a134d" />
+<img width="1920" height="1080" alt="Untitled design" src="https://github.com/user-attachments/assets/3476388b-ce66-4ca3-9fc9-9f4a709dc188" />
 
 
 **Overview Page**
@@ -179,24 +180,19 @@ Weather Related:
 
 # Installation
 
-- Save all (optional) of the [streamline_template](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/assets/streamline_templates) Paste it on the top of the page before the starting point of the dashboard above (views:)
-- Choose which card / visuals that you like to be added to your installation by clicking the hyperlink provided in the description above.
+**For new user:**
+- Copy all the code from _[full dashboard yaml](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/dashboard.yaml)_ to a new dashboard raw configuration editor to jumpstart your experience.
 - Install the required HACS components (such as simple swipe card, stack-in-card, popup-card, etc. - see your setup for what’s needed).
 - To unlock the full functionality (like weather icons, notification counts, and more), you’ll need to add the corresponding [sensors](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/template%20sensor) to your config.
 - For the Hue scene, you'll need to have the automation, scripts, input boolean, input text, and input number in your system that you can find in [hue asset folder](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/hue%20asset). For the images, you can get them from [here](https://github.com/Hypfer/hass-scene_presets/blob/master/custom_components/scene_presets/assets/Readme.md).
 - Apply the MD3 theme and select your preferred colors. It is accessible from Overview page > More > Bucket Fill Icon
+- Apply [wallpaper](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/wallpaper/) (optional)
+- Set the companion app to full screen (optional)
 
-<img width="483" height="628" alt="image" src="https://github.com/user-attachments/assets/cd952dc4-30cd-4864-ab13-1a0c02b21e1b" />
-
-
-- Select the Transparent option in Card Type to get the wide-system transparent cards
-  
-![Transparent Card](https://github.com/user-attachments/assets/7d0e3895-edd7-4cd3-88a0-e56f2dbc1ab5)
-
-- Apply [wallpaper](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/wallpapers/dark) (optional) and see the [example code](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/wallpapers/dark/Wallpaper%20code) to apply it correctly 
-
-- Enjoy your personalized dynamic dashboard! 🎉
-
+**For existing user:**
+- Review the [streamline_template](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/assets/streamline_templates) to see if you want to add / modify the previous version to the new version.
+- Choose which card / visuals that you like to be added to your installation by clicking the hyperlink provided in the description above.
+- Apply [wallpaper](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/wallpaper/) (optional)
 - Set the companion app to full screen (optional)
 
 # 📚 Credits
@@ -209,7 +205,6 @@ This project builds upon the work of:
 # 💖 Support My Work  
 
 If you want to hire me to make your personal dashboard, you can hit me up on one of these social media platforms below:
-- [Discord](https://discord.gg/5tVugEbd)
 - Email at  _reynaldi.sutrisno.rs16@gmail.com_
 - [Reddit](https://www.reddit.com/u/ElementZoom/s/dr4NN0mTtj)
 - [Facebook](https://www.facebook.com/profile.php?id=61578092475703)
