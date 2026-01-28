@@ -15,26 +15,6 @@ routes:
     label: Rooms
     icon: m3o:chair
     icon_selected: mdi:sofa
-    tap_action:
-      action: navigate
-      navigation_path: /mobile-dashboard/rooms
-    hold_action:
-      action: open-popup
-    popup:
-      - icon: mdi:garage-variant
-        url: /mobile-dashboard/garage
-      - icon: mdi:sofa
-        url: /mobile-dashboard/living-area
-      - icon: m3of:bed
-        url: /mobile-dashboard/master
-      - icon: m3of:stroller
-        url: /mobile-dashboard/baby
-      - icon: m3of:person-3
-        url: /mobile-dashboard/single-guest
-      - icon: m3of:groups-2
-        url: /mobile-dashboard/multiple-guest
-      - icon: m3of:computer
-        url: /mobile-dashboard/office
   - url: /mobile-dashboard/scenes
     label: Scenes
     icon: m3o:layers
@@ -64,9 +44,11 @@ routes:
           confirmation:
             text: Are you sure you want to restart Home Assistant?
 styles: |
+  .navbar {
+    --navbar-primary-color: var(--md-sys-color-primary);
+  }
   .navbar-card {
-    --navbar-primary-color: var(--md-sys-color-tertiary);
-    background: var(--nav-background);
+    background: color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent);
     backdrop-filter: blur(50px);
     -webkit-backdrop-filter: blur(20px) !important;
     background-blend-mode: overlay;
@@ -74,9 +56,8 @@ styles: |
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
     overflow: hidden;
-  }
 media_player:
-  entity: media_player.your_media_player_here
+  entity: media_player.a
   album_cover_background: true
   tap_action:
     action: navigate
