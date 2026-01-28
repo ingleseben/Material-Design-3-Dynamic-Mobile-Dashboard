@@ -1,91 +1,237 @@
-type: custom:simple-tabs
-pre-load: true
-active-background: var(--md-sys-color-tertiary)
-active-text-color: var(--md-sys-color-on-tertiary)
-text-color: var(--primary-text-color)
-tabs:
-  - title: Driveway
-    icon: mdi:car
-    card:
-      type: vertical-stack
-      cards:
-        - type: custom:streamline-card
-          template: title_subtitle_card
-          variables:
-            - title: 🚗 Driveway
-            - subtitle: "{{ states ('sensor.right_driveway_camera_status') }}"
-        - type: custom:webrtc-camera
-          url: >-
-            ffmpeg:rtsp://{{username:password}}@{{ip_address}}/h265Preview_01_main#video=copy#audio=opus
-        - type: custom:streamline-card
-          template: camera_rtsp_with_chips_card
-          variables:
-            camera_url: >-
-              ffmpeg:rtsp://{{username:password}}@{{ip_address}}/h265Preview_01_main#video=copy#audio=opus
-            entity_id_light_one: switch.light_switch_drw
-            light_one_icon: m3of:lightbulb
-            entity_id_light_two: switch.porch_light_drw
-            light_two_icon: m3of:lightbulb
-  - title: Walkway
-    icon: mdi:motion-sensor
-    card:
-      type: vertical-stack
-      cards:
-        - type: custom:streamline-card
-          template: title_subtitle_card
-          variables:
-            - title: 🚶 Walkway
-            - subtitle: "{{ states ('sensor.walkway_camera_status') }}"
-        - type: custom:streamline-card
-          template: camera_rtsp_with_chips_card
-          variables:
-            camera_url: >-
-              ffmpeg:rtsp://{{username:password}}@{{ip_address}}/h265Preview_01_main#video=copy#audio=opus
-            entity_id_light_one: switch.patio_main_switch_la
-            entity_id_light_two: switch.patio_side_switch_la
-            light_one_icon: mdi:outdoor-lamp
-            light_two_icon: mdi:outdoor-lamp
-        - type: custom:streamline-card
-          template: camera_generic_with_chips_card
-          variables:
-            camera_entity: camera.left_walkway_camera_fluent
-            entity_id_light_one: switch.outdoor_light_switch_lr
-            light_one_icon: mdi:outdoor-lamp
-            entity_id_light_two: switch.rear_light_switch_grg
-            light_two_icon: mdi:outdoor-lamp
-  - title: Garage
-    icon: m3of:garage
-    card:
-      type: vertical-stack
-      cards:
-        - type: custom:streamline-card
-          template: title_subtitle_card
-          variables:
-            - title: 🚗 Garage
-            - subtitle: "{{ states ('sensor.garage_camera_status') }}"
-        - type: custom:streamline-card
-          template: camera_rtsp_with_chips_card
-          variables:
-            camera_url: >-
-              ffmpeg:rtsp://{{username:password}}@{{ip_address}}/h264Preview_01_main#video=copy#audio=opus
-            entity_id_light_one: switch.light_switch_grg
-            light_one_icon: mdi:garage-variant
-            entity_id_light_two: switch.rear_light_switch_grg
-            light_two_icon: mdi:outdoor-lamp
-  - title: Backyard
-    icon: mdi:tree
-    card:
-      type: vertical-stack
-      cards:
-        - type: custom:streamline-card
-          template: title_subtitle_card
-          variables:
-            - title: 🏡 Backyard
-            - subtitle: "{{ states ('sensor.backyard_camera_status') }}"
-        - type: custom:streamline-card
-          template: camera_rtsp_with_chips_card
-          variables:
-            camera_url: >-
-              ffmpeg:rtsp://{{username:password}}@{{ip_address}}/h264Preview_01_main#video=copy#audio=opus
-            entity_id_light_one: switch.patio_main_switch_la
-            light_one_icon: m3of:lightbulb
+type: vertical-stack
+cards:
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:streamline-card
+        template: title_subtitle_card
+        variables:
+          title: 🚗 Driveway
+          subtitle: "{{ states ('sensor.right_driveway_camera_status') }}"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: automation.driveway_camera_vehicle_notification
+            icon: >
+              {{ 'mdi:car' if
+              is_state('automation.driveway_camera_vehicle_notification', 'on')
+              else 'mdi:car-off' }}
+            tap_action:
+              action: toggle
+          - type: template
+            entity: automation.driveway_camera_person_notification
+            icon: >
+              {{ 'm3of:sensor-occupied' if
+              is_state('automation.driveway_camera_person_notification', 'on')
+              else 'm3o:sensors-krx-off' }}
+            tap_action:
+              action: toggle
+        card_mod:
+          style: |
+            ha-card {
+              position: absolute;
+              top: 22px;
+              right: 2px;
+            }
+  - type: custom:webrtc-camera
+    url: >-
+      ffmpeg:rtsp://{user:password}@192.168.1.150/h265Preview_01_main#video=copy#audio=opus
+    muted: true
+  - type: custom:streamline-card
+    template: camera_rtsp_with_chips_card
+    variables:
+      camera_url: >-
+        ffmpeg:rtsp://{user:password}@192.168.1.245/h265Preview_01_main#video=copy#audio=opus
+      entity_id_light_one: switch.light_switch_drw
+      light_one_icon: m3of:lightbulb
+      entity_id_light_two: switch.porch_light_drw
+      light_two_icon: m3of:lightbulb
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:streamline-card
+        template: title_subtitle_card
+        variables:
+          title: 🚶 Left Walkway
+          subtitle: "{{ states ('sensor.left_walkway_camera_status') }}"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: automation.left_walkway_camera_person_notification
+            icon: >
+              {{ 'm3of:sensor-occupied' if
+              is_state('automation.left_walkway_camera_person_notification',
+              'on') else 'm3o:sensors-krx-off' }}
+            tap_action:
+              action: toggle
+        card_mod:
+          style: |
+            ha-card {
+              position: absolute;
+              top: 22px;
+              right: 2px;
+            }
+  - type: custom:streamline-card
+    template: camera_rtsp_with_chips_card
+    variables:
+      camera_url: >-
+        ffmpeg:rtsp://{user:password}@192.168.1.244/h265Preview_01_main#video=copy#audio=opus
+      entity_id_light_one: switch.patio_main_switch_la
+      entity_id_light_two: switch.patio_side_switch_la
+      light_one_icon: mdi:outdoor-lamp
+      light_two_icon: mdi:outdoor-lamp
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:streamline-card
+        template: title_subtitle_card
+        variables:
+          title: 🚶 Right Walkway
+          subtitle: "{{ states ('sensor.right_walkway_camera_status') }}"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: automation.right_walkway_camera_person_notification
+            icon: >
+              {{ 'm3of:sensor-occupied' if
+              is_state('automation.right_walkway_camera_person_notification',
+              'on') else 'm3o:sensors-krx-off' }}
+            tap_action:
+              action: toggle
+        card_mod:
+          style: |
+            ha-card {
+              position: absolute;
+              top: 22px;
+              right: 2px;
+            }
+  - type: custom:streamline-card
+    template: camera_generic_with_chips_card
+    variables:
+      camera_entity: camera.left_walkway_camera_fluent
+      entity_id_light_one: switch.outdoor_light_switch_lr
+      light_one_icon: mdi:outdoor-lamp
+      entity_id_light_two: switch.rear_light_switch_grg
+      light_two_icon: mdi:outdoor-lamp
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:streamline-card
+        template: title_subtitle_card
+        variables:
+          title: 🌳 Backyard
+          subtitle: "{{ states ('sensor.backyard_camera_status') }}"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: automation.right_backyard_camera_person_notification
+            icon: >
+              {{ 'm3of:sensor-occupied' if
+              is_state('automation.right_backyard_camera_person_notification',
+              'on') else 'm3o:sensors-krx-off' }}
+            tap_action:
+              action: toggle
+        card_mod:
+          style: |
+            ha-card {
+              position: absolute;
+              top: 22px;
+              right: 2px;
+            }
+  - type: custom:streamline-card
+    template: camera_rtsp_with_chips_card
+    variables:
+      camera_url: >-
+        ffmpeg:rtsp://{user:password}@192.168.1.148/h264Preview_01_main#video=copy#audio=opus
+      entity_id_light_one: switch.patio_main_switch_la
+      light_one_icon: m3of:lightbulb
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:streamline-card
+        template: title_subtitle_card
+        variables:
+          title: 🚗 Garage
+          subtitle: "{{ states ('sensor.garage_camera_status') }}"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: switch.fingerbot_grg
+            icon: |
+              {% if is_state('binary_sensor.door_sensor_grg_contact', 'on') %}
+                mdi:garage-open-variant
+              {% else %}
+                mdi:garage-variant
+              {% endif %}
+            icon_color: var(--primary-text-color)
+            content: |
+              {% if is_state('binary_sensor.door_sensor_grg_contact', 'on') %}
+                Open
+              {% else %}
+                Closed
+              {% endif %}
+            tap_action:
+              action: toggle
+            card_mod:
+              style: |
+                ha-card {
+                  --text-color: {{ 'var(--primary-text-color)' if is_state('binary_sensor.door_sensor_grg_contact', 'on') else 'none' }};
+                  --color: {{ 'var(--primary-text-color)' if is_state('binary_sensor.door_sensor_grg_contact', 'on') else 'none' }};
+                  --chip-background: {{ '#bc000a' if is_state('binary_sensor.door_sensor_grg_contact', 'on') else 'none' }};    
+                }
+          - type: template
+            entity: automation.garage_camera_person_notification
+            icon: >
+              {{ 'm3of:sensor-occupied' if
+              is_state('automation.garage_camera_person_notification', 'on')
+              else 'm3o:sensors-krx-off' }}
+            tap_action:
+              action: toggle
+        card_mod:
+          style: |
+            ha-card {
+              position: absolute;
+              top: 22px;
+              right: 2px;
+            }
+  - type: custom:streamline-card
+    template: camera_rtsp_with_chips_card
+    variables:
+      camera_url: >-
+        ffmpeg:rtsp://{user:password}@192.168.1.248/h264Preview_01_main#video=copy#audio=opus
+      entity_id_light_one: switch.light_switch_grg
+      light_one_icon: mdi:garage-variant
+      entity_id_light_two: switch.rear_light_switch_grg
+      light_two_icon: mdi:outdoor-lamp
+  - type: custom:stack-in-card
+    mode: vertical
+    cards:
+      - type: custom:streamline-card
+        template: title_subtitle_card
+        variables:
+          title: 🚪 Entrance
+          subtitle: "{{ states ('sensor.entrance_camera_status') }}"
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: automation.driveway_camera_vehicle_notification
+            icon: >-
+              {{ 'm3of:sensor-occupied' if
+              is_state('automation.room_presence_entrance', 'on') else
+              'm3o:sensors-krx-off' }}
+            tap_action:
+              action: toggle
+        card_mod:
+          style: |
+            ha-card {
+              position: absolute;
+              top: 22px;
+              right: 2px;
+            }
+  - type: custom:streamline-card
+    template: camera_rtsp_with_chips_card
+    variables:
+      camera_url: >-
+        ffmpeg:rtsp://{user:password}@192.168.1.222/h264Preview_01_main#video=copy#audio=opus
+      entity_id_light_one: light.lights_etr
+      light_one_icon: m3of:lightbulb
