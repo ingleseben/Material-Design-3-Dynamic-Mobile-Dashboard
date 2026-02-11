@@ -4,41 +4,45 @@ card_min_width: 400
 card_spacing: 8
 show_pagination: false
 auto_hide_pagination: 0
+auto_height: false
 loop_mode: infinite
+card_mod:
+  style: |
+    :host {
+      animation: slideDown 0.15s ease-out 1.4s both;
+    }
+    @keyframes slideDown {
+      from { 
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to { 
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 cards:
   - type: horizontal-stack
     cards:
-      - type: picture
-        image: /local/hue/raw/Blossom.png
-        tap_action:
-          action: call-service
-          service: input_text.set_value
-          data:
-            entity_id: input_text.dynamic_scene_selected
-            value: blossom
-      - type: picture
-        image: /local/hue/raw/Crocus.png
-        tap_action:
-          action: call-service
-          service: input_text.set_value
-          data:
-            entity_id: input_text.dynamic_scene_selected
-            value: crocus
+      - type: custom:streamline-card
+        template: scene_button_card
+        variables:
+          img_path: /local/hue/raw/Blossom.webp
+          scene_value: blossom
+      - type: custom:streamline-card
+        template: scene_button_card
+        variables:
+          img_path: /local/hue/raw/Crocus.webp
+          scene_value: crocus
   - type: horizontal-stack
     cards:
-      - type: picture
-        image: /local/hue/raw/Precious.png
-        tap_action:
-          action: call-service
-          service: input_text.set_value
-          data:
-            entity_id: input_text.dynamic_scene_selected
-            value: precious
-      - type: picture
-        image: /local/hue/raw/Narcissa.png
-        tap_action:
-          action: call-service
-          service: input_text.set_value
-          data:
-            entity_id: input_text.dynamic_scene_selected
-            value: narcissa
+      - type: custom:streamline-card
+        template: scene_button_card
+        variables:
+          img_path: /local/hue/raw/Precious.webp
+          scene_value: precious
+      - type: custom:streamline-card
+        template: scene_button_card
+        variables:
+          img_path: /local/hue/raw/Narcissa.webp
+          scene_value: narcissa
