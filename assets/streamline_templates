@@ -14,6 +14,7 @@ streamline_templates:
     variables:
       title: ''
       subtitle: ''
+      animation_delay: 0s
     card:
       type: custom:mushroom-title-card
       title: '[[title]]'
@@ -23,6 +24,11 @@ streamline_templates:
           ha-card {
             --title-font-size: 20px !important;
             --subtitle-font-size: 14px !important;
+            animation: fadeIn 1.0s ease-out [[animation_delay]] both;
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
           }
   title_subtitle_navigation_card:
     variables:
@@ -67,6 +73,17 @@ streamline_templates:
         style: |
           ha-card {
             --title-font-size: 15px !important;
+            animation: fadeInDown 1.0s ease-out 0.3s both;
+          }
+          @keyframes fadeInDown {
+            from {
+              opacity: 0;
+              transform: translateY(-40px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
           }
   back_button_card:
     variables:
@@ -85,7 +102,83 @@ streamline_templates:
                 ha-card {
                   --color: var(--md-sys-color-primary);
                   --chip-background: var(--md-sys-color-on-primary);
-                  margin_top: 0.7em;
+                  animation: fadeInDown 0.4s ease-out 0.6s both;
+                }
+                @keyframes fadeInDown {
+                  from {
+                    opacity: 0;
+                    transform: translateY(-40px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
+                }
+  page_title_card:
+    variables:
+      - title: ''
+      - alignment: center
+    card:
+      type: custom:button-card
+      name: '[[title]]'
+      show_icon: false
+      show_state: false
+      tap_action:
+        action: none
+      styles:
+        card:
+          - background: none
+          - box-shadow: none
+          - height: 38px
+        name:
+          - justify-self: '[[alignment]]'
+          - font-size: 24px
+          - font-weight: 500
+          - letter-spacing: '-0.7px'
+      card_mod:
+        style: |
+          :host {
+            animation: fadeInDown 0.4s ease-out 0.6s both;
+          }
+          @keyframes fadeInDown {
+            from {
+              opacity: 0;
+              transform: translateY(-40px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+  more-options-card:
+    variables:
+      navigation_path: ''
+    card:
+      type: custom:mushroom-chips-card
+      alignment: end
+      chips:
+        - type: template
+          tap_action:
+            action: navigate
+            navigation_path: '[[navigation_path]]'
+          icon: mdi:dots-horizontal
+          card_mod:
+            style:
+              .: |
+                ha-card {
+                  --color: var(--md-sys-color-primary);
+                  --chip-background: var(--md-sys-color-on-primary);
+                  animation: fadeInDown 0.4s ease-out 0.6s both;
+                }
+                @keyframes fadeInDown {
+                  from {
+                    opacity: 0;
+                    transform: translateY(-40px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
                 }
   room_card:
     default:
@@ -101,16 +194,17 @@ streamline_templates:
       - entity_id_fans: ''
       - entity_id_doors: ''
       - entity_id_windows: ''
+      - entity_id_speakers: ''
       - entity_id_custom_1: ''
       - entity_id_custom_2: ''
       - entity_id_custom_3: ''
       - entity_id_custom_4: ''
-      - room_background: '#f5f5f5'
       - lights_count_sensor: ''
       - covers_count_sensor: ''
       - fans_count_sensor: ''
       - doors_count_sensor: ''
       - windows_count_sensor: ''
+      - speakers_count_sensor: ''
       - lights_icon: ''
       - custom_1_icon: ''
       - custom_2_icon: ''
@@ -120,6 +214,7 @@ streamline_templates:
       - custom_2_color: ''
       - custom_3_color: ''
       - custom_4_color: ''
+      - room_background: '#f5f5f5'
     card:
       type: custom:stack-in-card
       mode: horizontal
@@ -133,7 +228,7 @@ streamline_templates:
                 = states('[[entity_id_humidity]]') %} {% set unit =
                 state_attr('weather.home', 'temperature_unit') or '°C' %} {% set
                 parts = [] %} {% if temp | is_number %}
-                  {% set parts = parts + [temp | round(1) ~ '°' ~ unit] %}
+                  {% set parts = parts + [temp | round(1) ~ unit] %}
                 {% endif %} {% if hum | is_number %}
                   {% set parts = parts + [hum | round(1) ~ '%'] %}
                 {% endif %} {{ parts | join(' / ') }}
@@ -218,8 +313,6 @@ streamline_templates:
                       height: 35px;
                       width: 35px;
                       border-radius: 22px;
-                      border: 0;
-                      box-shadow: none;
                     }
             - type: conditional
               conditions:
@@ -322,6 +415,45 @@ streamline_templates:
             - type: conditional
               conditions:
                 - condition: state
+                  entity: '[[entity_id_speakers]]'
+                  state_not: unknown
+                - condition: state
+                  entity: '[[entity_id_speakers]]'
+                  state_not: unavailable
+              chip:
+                type: template
+                entity: '[[entity_id_speakers]]'
+                tap_action:
+                  action: more-info
+                icon: >
+                  {% if is_state('[[entity_id_speakers]]', 'on') or
+                  is_state('[[entity_id_speakers]]', 'playing') or
+                  is_state('[[entity_id_speakers]]', 'paused') %}
+                    mdi:speaker
+                  {% else %}
+                    mdi:speaker-off
+                  {% endif %}
+                content: >-
+                  {{ states('[[speakers_count_sensor]]') if
+                  states('[[speakers_count_sensor]]') != '0' else '' }}
+                card_mod:
+                  style: >
+                    {% set speaker_state = states('[[entity_id_speakers]]') %}
+
+                    {% set is_on = speaker_state in ['on', 'playing', 'paused']
+                    %}
+
+                    ha-card {
+                      --chip-background: {% if is_on %} #AFE1AF {% else %} #353535 {% endif %};
+                      --color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                      --text-color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                      height: 35px;
+                      width: 35px;
+                      border-radius: 22px;
+                    }
+            - type: conditional
+              conditions:
+                - condition: state
                   entity: '[[entity_id_windows]]'
                   state_not: unknown
                 - condition: state
@@ -402,9 +534,9 @@ streamline_templates:
                   action: more-info
                 icon: >
                   {% set current_state = states('[[entity_id_custom_1]]') %} {%
-                  set is_active = current_state in ['on', 'playing', 'paused']
-                  and current_state not in ['docked', 'off', 'idle',
-                  'unavailable', 'unknown'] %} {% if is_active %}
+                  set is_active = current_state in ['on', 'playing', 'paused',
+                  'locked'] and current_state not in ['docked', 'off', 'idle',
+                  'unavailable', 'unknown', 'unlocked'] %} {% if is_active %}
                     [[custom_1_icon_active]]
                   {% else %}
                     [[custom_1_icon_inactive]]
@@ -414,8 +546,8 @@ streamline_templates:
                     {% set current_state = states('[[entity_id_custom_1]]') %}
 
                     {% set is_active = current_state in ['on', 'playing',
-                    'paused'] and current_state not in ['docked', 'off', 'idle',
-                    'unavailable', 'unknown'] %}
+                    'paused', 'locked'] and current_state not in ['docked',
+                    'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
 
                     ha-card {
                       --chip-background: {% if is_active %} [[custom_1_color]] {% else %} #353535 {% endif %};
@@ -440,9 +572,9 @@ streamline_templates:
                   action: more-info
                 icon: >
                   {% set current_state = states('[[entity_id_custom_2]]') %} {%
-                  set is_active = current_state in ['on', 'playing', 'paused']
-                  and current_state not in ['docked', 'off', 'idle',
-                  'unavailable', 'unknown'] %} {% if is_active %}
+                  set is_active = current_state in ['on', 'playing', 'paused',
+                  'locked'] and current_state not in ['docked', 'off', 'idle',
+                  'unavailable', 'unknown', 'unlocked'] %} {% if is_active %}
                     [[custom_2_icon_active]]
                   {% else %}
                     [[custom_2_icon_inactive]]
@@ -452,8 +584,8 @@ streamline_templates:
                     {% set current_state = states('[[entity_id_custom_2]]') %}
 
                     {% set is_active = current_state in ['on', 'playing',
-                    'paused'] and current_state not in ['docked', 'off', 'idle',
-                    'unavailable', 'unknown'] %}
+                    'paused', 'locked'] and current_state not in ['docked',
+                    'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
 
                     ha-card {
                       --chip-background: {% if is_active %} [[custom_2_color]] {% else %} #353535 {% endif %};
@@ -478,9 +610,9 @@ streamline_templates:
                   action: more-info
                 icon: >
                   {% set current_state = states('[[entity_id_custom_3]]') %} {%
-                  set is_active = current_state in ['on', 'playing', 'paused']
-                  and current_state not in ['docked', 'off', 'idle',
-                  'unavailable', 'unknown'] %} {% if is_active %}
+                  set is_active = current_state in ['on', 'playing', 'paused',
+                  'locked'] and current_state not in ['docked', 'off', 'idle',
+                  'unavailable', 'unknown', 'unlocked'] %} {% if is_active %}
                     [[custom_3_icon_active]]
                   {% else %}
                     [[custom_3_icon_inactive]]
@@ -490,8 +622,8 @@ streamline_templates:
                     {% set current_state = states('[[entity_id_custom_3]]') %}
 
                     {% set is_active = current_state in ['on', 'playing',
-                    'paused'] and current_state not in ['docked', 'off', 'idle',
-                    'unavailable', 'unknown'] %}
+                    'paused', 'locked'] and current_state not in ['docked',
+                    'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
 
                     ha-card {
                       --chip-background: {% if is_active %} [[custom_3_color]] {% else %} #353535 {% endif %};
@@ -516,9 +648,9 @@ streamline_templates:
                   action: more-info
                 icon: >
                   {% set current_state = states('[[entity_id_custom_4]]') %} {%
-                  set is_active = current_state in ['on', 'playing', 'paused']
-                  and current_state not in ['docked', 'off', 'idle',
-                  'unavailable', 'unknown'] %} {% if is_active %}
+                  set is_active = current_state in ['on', 'playing', 'paused',
+                  'locked'] and current_state not in ['docked', 'off', 'idle',
+                  'unavailable', 'unknown', 'unlocked'] %} {% if is_active %}
                     [[custom_4_icon_active]]
                   {% else %}
                     [[custom_4_icon_inactive]]
@@ -528,8 +660,8 @@ streamline_templates:
                     {% set current_state = states('[[entity_id_custom_4]]') %}
 
                     {% set is_active = current_state in ['on', 'playing',
-                    'paused'] and current_state not in ['docked', 'off', 'idle',
-                    'unavailable', 'unknown'] %}
+                    'paused', 'locked'] and current_state not in ['docked',
+                    'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
 
                     ha-card {
                       --chip-background: {% if is_active %} [[custom_4_color]] {% else %} #353535 {% endif %};
@@ -555,7 +687,7 @@ streamline_templates:
               background: [[room_background]];
             {% else %}
               {% set t = temp | float %}
-              background: 
+              background:
               {% if t < 13 %} #AC9CAF
               {% elif t < 16 %} #D7C4DB
               {% elif t < 19 %} #A3D9F5
@@ -565,6 +697,19 @@ streamline_templates:
               {% else %} #E48F7B {% endif %};
             {% endif %}
             height: 186px;
+            contain: layout paint;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            animation:
+              reveal 0s linear [[animation_delay]] forwards,
+              fadeIn 0.35s ease-out [[animation_delay]] forwards;
+          }
+          @keyframes reveal {
+            to { visibility: visible; }
+          }
+          @keyframes fadeIn {
+            to { opacity: 1; }
           }
   room_toggles_chip_card:
     variables:
@@ -581,7 +726,7 @@ streamline_templates:
       - area_three_icon: ''
       - area_four_icon: ''
       - alignment: ''
-      - margin_top: ''
+      - animation_delay: 0s
     card:
       type: custom:mushroom-chips-card
       chips:
@@ -607,11 +752,21 @@ streamline_templates:
             card_mod:
               style:
                 .: |
-
                   ha-card {
                     --text-color: var(--md-sys-color-primary);
                     --color: var(--md-sys-color-primary);
                     --chip-background: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_area_one]]', 'on') else none }};
+                    animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0s) both;
+                  }
+                  @keyframes slideInLeft {
+                    from { 
+                      opacity: 0;
+                      transform: translateX(-40px);
+                    }
+                    to { 
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
                   }
         - type: conditional
           conditions:
@@ -639,6 +794,17 @@ streamline_templates:
                     --text-color: var(--md-sys-color-primary);
                     --color: var(--md-sys-color-primary);
                     --chip-background: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_area_two]]', 'on') else none }};
+                    animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.2s) both;
+                  }
+                  @keyframes slideInLeft {
+                    from { 
+                      opacity: 0;
+                      transform: translateX(-40px);
+                    }
+                    to { 
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
                   }
         - type: conditional
           conditions:
@@ -666,6 +832,17 @@ streamline_templates:
                     --text-color: var(--md-sys-color-primary);
                     --color: var(--md-sys-color-primary);
                     --chip-background: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_area_three]]', 'on') else none }};
+                    animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.4s) both;
+                  }
+                  @keyframes slideInLeft {
+                    from { 
+                      opacity: 0;
+                      transform: translateX(-40px);
+                    }
+                    to { 
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
                   }
         - type: conditional
           conditions:
@@ -693,13 +870,19 @@ streamline_templates:
                     --text-color: var(--md-sys-color-primary);
                     --color: var(--md-sys-color-primary);
                     --chip-background: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_area_four]]', 'on') else none }};
+                    animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.6s) both;
+                  }
+                  @keyframes slideInLeft {
+                    from { 
+                      opacity: 0;
+                      transform: translateX(-40px);
+                    }
+                    to { 
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
                   }
       alignment: '[[alignment]]'
-      card_mod:
-        style: |
-          ha-card {
-            margin-top: [[margin_top]];
-          }
   room_nav_boolean_chip_card:
     variables:
       - button_one: ''
@@ -711,7 +894,7 @@ streamline_templates:
       - button_three_icon: ''
       - button_four_icon: ''
       - alignment: ''
-      - margin_top: ''
+      - margin-top: ''
     card:
       type: custom:mushroom-chips-card
       chips:
@@ -807,18 +990,7 @@ streamline_templates:
       card_mod:
         style: |
           ha-card {
-            margin-top: [[margin_top]];
-          }
-  room_title_card:
-    variables:
-      - title: ''
-    card:
-      type: custom:mushroom-title-card
-      title: '[[title]]'
-      card_mod:
-        style: |
-          ha-card {
-            --title-font-size: 30px !important;
+            margin-top: [[margin-top]];
           }
   open_windows_card:
     variables:
@@ -1073,6 +1245,7 @@ streamline_templates:
       - entity_id_light_two: ''
       - light_one_icon: ''
       - light_two_icon: ''
+      - animation_delay: 0s
     variables:
       - camera_entity
       - camera_height
@@ -1080,6 +1253,7 @@ streamline_templates:
       - entity_id_light_two
       - light_one_icon
       - light_two_icon
+      - animation_delay
     card:
       type: vertical-stack
       cards:
@@ -1092,6 +1266,15 @@ streamline_templates:
               ha-card {
                 height: [[camera_height]];
                 overflow: hidden;
+                animation: fadeIn 2.5s ease-out [[animation_delay]] both;
+              }
+              @keyframes fadeIn {
+                from { 
+                  opacity: 0;
+                }
+                to { 
+                  opacity: 1;
+                }
               }
         - type: custom:mushroom-chips-card
           alignment: start
@@ -1119,6 +1302,17 @@ streamline_templates:
                         --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-on-primary)' }};
+                        animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.3s) both;
+                      }
+                      @keyframes slideInLeft {
+                        from { 
+                          opacity: 0;
+                          transform: translateX(-40px);
+                        }
+                        to { 
+                          opacity: 1;
+                          transform: translateX(0);
+                        }
                       }
             - type: conditional
               conditions:
@@ -1143,6 +1337,17 @@ streamline_templates:
                         --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-on-primary)' }};
+                        animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.5s) both;
+                      }
+                      @keyframes slideInLeft {
+                        from { 
+                          opacity: 0;
+                          transform: translateX(-40px);
+                        }
+                        to { 
+                          opacity: 1;
+                          transform: translateX(0);
+                        }
                       }
   camera_rtsp_with_chips_card:
     default:
@@ -1152,6 +1357,7 @@ streamline_templates:
       - entity_id_light_two: ''
       - light_one_icon: ''
       - light_two_icon: ''
+      - animation_delay: 0s
     variables:
       - camera_url
       - camera_height
@@ -1159,6 +1365,7 @@ streamline_templates:
       - entity_id_light_two
       - light_one_icon
       - light_two_icon
+      - animation_delay
     card:
       type: vertical-stack
       cards:
@@ -1169,6 +1376,15 @@ streamline_templates:
               ha-card {
                 height: [[camera_height]];
                 overflow: hidden;
+                animation: fadeIn 2.5s ease-out [[animation_delay]] both;
+              }
+              @keyframes fadeIn {
+                from { 
+                  opacity: 0;
+                }
+                to { 
+                  opacity: 1;
+                }
               }
         - type: custom:mushroom-chips-card
           alignment: start
@@ -1196,6 +1412,17 @@ streamline_templates:
                         --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-on-primary)' }};
+                        animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.3s) both;
+                      }
+                      @keyframes slideInLeft {
+                        from { 
+                          opacity: 0;
+                          transform: translateX(-40px);
+                        }
+                        to { 
+                          opacity: 1;
+                          transform: translateX(0);
+                        }
                       }
             - type: conditional
               conditions:
@@ -1220,6 +1447,17 @@ streamline_templates:
                         --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-primary)' }};
                         --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-on-primary)' }};
+                        animation: slideInLeft 0.6s ease-out calc([[animation_delay]] + 0.5s) both;
+                      }
+                      @keyframes slideInLeft {
+                        from { 
+                          opacity: 0;
+                          transform: translateX(-40px);
+                        }
+                        to { 
+                          opacity: 1;
+                          transform: translateX(0);
+                        }
                       }
   media_player_card:
     variables:
@@ -1245,11 +1483,11 @@ streamline_templates:
         style:
           .: |
             ha-state-icon {
-              color: {{ 'var(--primary-background-color)' if is_state('[[entity]]', 'on') else 'none' }};
+              color: {{ 'var(--primary-background-color)' if is_state('[[entity]]', ['on', 'playing', 'paused', 'idle']) else 'none' }};
             }
           mushroom-shape-icon$: |
             .shape {
-              --shape-color: {{ 'var(--md-sys-color-secondary)' if is_state('[[entity]]', 'on') else 'color-mix(in srgb, var(--md-sys-color-surface-variant) 40%, transparent)' }};
+              --shape-color: {{ 'var(--md-sys-color-secondary)' if is_state('[[entity]]', ['on', 'playing', 'paused', 'idle']) else 'color-mix(in srgb, var(--md-sys-color-surface-variant) 40%, transparent)' }};
             }
           mushroom-media-player-volume-control$: |
             mushroom-slider {
@@ -1287,28 +1525,24 @@ streamline_templates:
   number_slider_card:
     variables:
       entity: ''
-      name: ''
-      icon: ''
     card:
       type: custom:mushroom-number-card
       entity: '[[entity]]'
-      name: '[[name]]'
-      icon: '[[icon]]'
       display_mode: slider
       fill_container: true
       card_mod:
         style:
           .: |
             ha-state-icon {
-              color: var(--md-sys-color-secondary);
+              color: var(--primary-background-color);
             }
           mushroom-shape-icon$: |
             .shape {
-              --shape-color: var(--md-sys-color-on-secondary) !important;
+              --shape-color: var(--md-sys-color-secondary) !important;
             }
           mushroom-number-value-control$: |
             mushroom-slider {
-              --main-color: var(--md-sys-color-on-secondary) !important;
+              --main-color: var(--md-sys-color-primary) !important;
               --bg-color: var(--md-sys-color-secondary) !important;
             }
   select_card:
@@ -1339,6 +1573,22 @@ streamline_templates:
                 --mdc-theme-primary: var(--primary-color);
                 --mdc-theme-surface: inherit;
               }
+  scene_title_card:
+    variables:
+      subtitle: ''
+      animation_delay: 0s
+    card:
+      type: custom:mushroom-title-card
+      subtitle: '[[subtitle]]'
+      card_mod:
+        style: |
+          ha-card {
+            animation: fadeIn 0.4s ease-out [[animation_delay]] both;
+          }
+          @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
   scene_button_card:
     variables:
       img_path: ''
@@ -1450,6 +1700,8 @@ streamline_templates:
       entity: ''
       name: ''
       icon: ''
+      text_on: ''
+      text_off: ''
     card:
       type: custom:material-button-card
       use_default_icon: false
@@ -1460,8 +1712,8 @@ streamline_templates:
       height: 97
       control_type: generic
       dual_icon: false
-      text_on: Open
-      text_off: Closed
+      text_on: '[[text_on]]'
+      text_off: '[[text_off]]'
   material_custom_dual_icon_button_card:
     variables:
       entity: ''
@@ -1487,6 +1739,8 @@ streamline_templates:
       icon: ''
       icon_on: ''
       icon_off: ''
+      text_on: ''
+      text_off: ''
     card:
       type: custom:material-button-card
       use_default_icon: false
@@ -1498,8 +1752,8 @@ streamline_templates:
       height: 97
       control_type: generic
       dual_icon: true
-      text_on: Open
-      text_off: Closed
+      text_on: '[[text_on]]'
+      text_off: '[[text_off]]'
   spacer_card:
     variables:
       padding: ''
@@ -1514,3 +1768,150 @@ streamline_templates:
           - background: none
           - box-shadow: none
           - padding: '[[padding]]'
+  room_selector:
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: '#room-selector'
+          name: Room Selector
+          icon: m3of:gmail-rooms
+          styles: |-
+            #root {
+              max-height: 100% !important;
+              transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+            }
+            .bubble-pop-up-container {
+              padding-bottom: 64px !important;
+            }
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          margin_top_mobile: calc(100vh - 475px)
+        - type: custom:simple-swipe-card
+          auto_hide_pagination: 0
+          auto_height: true
+          cards:
+            - type: custom:vertical-stack-in-card
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:mushroom-template-card
+                      icon: mdi:garage-variant
+                      features_position: bottom
+                      primary: Garage
+                      color: '#ff595e'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/garage
+                    - type: custom:mushroom-template-card
+                      icon: mdi:sofa
+                      features_position: bottom
+                      primary: Living Area
+                      color: '#ff924c'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/living-area
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:mushroom-template-card
+                      icon: m3of:bed
+                      features_position: bottom
+                      primary: Master Bedroom
+                      color: '#ffca3a'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/master-bedroom
+                    - type: custom:mushroom-template-card
+                      icon: mdi:baby-carriage
+                      features_position: bottom
+                      primary: Baby Room
+                      color: '#c5ca30'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/baby-room
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:mushroom-template-card
+                      icon: m3of:person-3
+                      features_position: bottom
+                      primary: Single Guest Room
+                      color: '#8ac926'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/single-guest-room
+                    - type: custom:mushroom-template-card
+                      icon: m3of:groups-2
+                      features_position: bottom
+                      primary: Multiple Guest Room
+                      color: '#52a675'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/multiple-guest-room
+                - type: custom:streamline-card
+                  template: spacer_card
+                  variables:
+                    padding: 20px
+            - type: custom:vertical-stack-in-card
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:mushroom-template-card
+                      icon: mdi:table-furniture
+                      features_position: bottom
+                      primary: Entrance
+                      color: '#1982c4'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/entrance
+                    - type: custom:mushroom-template-card
+                      icon: m3of:computer
+                      features_position: bottom
+                      primary: Office
+                      color: '#4267ac'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/office
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:mushroom-template-card
+                      icon: m3of:water-drop
+                      features_position: bottom
+                      primary: Guest Bathroom
+                      color: '#6a4c93'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/guest-bathroom
+                    - type: custom:mushroom-template-card
+                      icon: mdi:light-flood-down
+                      features_position: bottom
+                      primary: Driveway
+                      color: '#b5a6c9'
+                      vertical: true
+                      tap_action:
+                        action: navigate
+                        navigation_path: /mobile-dashboard/driveway
+                - type: custom:streamline-card
+                  template: spacer_card
+                  variables:
+                    padding: 20px
+          card_mod:
+            style: |
+              :host {
+                --simple-swipe-card-pagination-dot-active-color: var(--md-sys-color-primary);
+                --simple-swipe-card-pagination-dot-inactive-color: var(--md-sys-color-on-primary);
+                --simple-swipe-card-pagination-dot-size: 7px;
+              }
