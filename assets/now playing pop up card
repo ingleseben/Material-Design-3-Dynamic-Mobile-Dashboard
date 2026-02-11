@@ -16,36 +16,22 @@ cards:
               
             }
     button_type: name
+    sub_button:
+      main: []
+      bottom: []
+    slider_fill_orientation: left
+    slider_value_position: right
   - type: custom:mediocre-massive-media-player-card
-    entity_id: media_player.your_media_here
+    entity_id: media_player.your_media
     mode: card
-    action: {}
+    action:
+      tap_action:
+        action: url
+        url_path: spotify://home
     speaker_group:
       entities:
-        - entity: media_player.living_area_soundbar
-          name: Living Area Soundbar
-        - entity: media_player.nestmini8699
-          name: Master Bedroom
-    search:
-      enabled: true
-      show_favorites: false
+        - media_player.jbl_bar_500
+        - media_player.nestmini8699
+    media_browser: null
     card_mod:
       class: filled
-  - type: custom:bubble-card
-    card_type: separator
-    styles: |-
-      .bubble-icon,
-      .bubble-name {
-        display: none;
-      }
-      .bubble-line {
-        margin-right: 0;
-        height: 4px;
-        max-width: 32px;
-        opacity: 1;
-        background: var(--md-sys-color-on-surface-variant);
-      }
-      .bubble-separator {
-        height: min-content !important;
-        justify-content: center;
-      }
