@@ -1,6 +1,7 @@
 type: custom:navbar-card
 mobile:
   show_labels: true
+haptic: true
 desktop:
   show_labels: true
   position: left
@@ -32,8 +33,6 @@ routes:
         url: /config/dashboard
       - icon: m3of:sprinkler
         url: /mobile-dashboard/irrigation
-      - icon: m3of:server-person
-        url: /mobile-dashboard/server
       - icon: m3of:colors
         url: /material-you-configuration
       - icon: m3of:power-settings-new
@@ -44,9 +43,6 @@ routes:
           confirmation:
             text: Are you sure you want to restart Home Assistant?
 styles: |
-  .navbar {
-    --navbar-primary-color: var(--md-sys-color-primary);
-  }
   .navbar-card {
     background: color-mix(in srgb, var(--md-sys-color-on-primary) 70%, transparent);
     backdrop-filter: blur(50px);
@@ -56,8 +52,29 @@ styles: |
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     margin-bottom: 15px;
     overflow: hidden;
+    animation: fadeInUp 0.5s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .button.active {
+    background: transparent;
+  }
+
+  ha-ripple {
+    display: none !important;
+  }
 media_player:
-  entity: media_player.a
+  entity: media_player.your_media
   album_cover_background: true
   tap_action:
     action: navigate
