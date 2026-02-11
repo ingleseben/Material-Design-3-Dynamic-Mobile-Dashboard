@@ -1,34 +1,24 @@
-type: custom:expander-card
-child-margin-top: "-0.5em"
-animation: true
-title-card-button-overlay: true
-title-card-clickable: true
-expanded: false
-title-card:
-  type: custom:streamline-card
-  template: title_card
-  variables:
-    title: Rooms
+type: vertical-stack
 cards:
-  - type: vertical-stack
-    cards:
-      - type: custom:streamline-card
-        template: room_toggles_chip_card
-        variables:
-          entity_area_one: input_boolean.room_toggle_one_mobile
-          area_one_icon: mdi:star
-          area_one_name: Default
-          entity_area_two: input_boolean.room_toggle_two_mobile
-          area_two_icon: mdi:home-floor-2
-          area_two_name: Others
-          entity_area_three: input_boolean.room_toggle_three_mobile
-          area_three_icon: mdi:home-floor-3
-          area_three_name: Outdoor
-          margin_top: 1.4em
-          alignment: start
-      - type: custom:streamline-card
-        template: spacer_card
-        variables:
-          padding: 4px
-gap: "2"
-padding: "0"
+  - type: custom:streamline-card
+    template: spacer_card
+    variables:
+      padding: 4px
+  - type: custom:streamline-card
+    template: room_toggles_chip_card
+    variables:
+      entity_area_one: input_boolean.room_toggle_one_mobile
+      area_one_icon: mdi:star
+      area_one_name: Default
+      entity_area_two: input_boolean.room_toggle_two_mobile
+      area_two_icon: mdi:home
+      area_two_name: Others
+      entity_area_three: input_boolean.room_toggle_three_mobile
+      area_three_icon: mdi:light-flood-down
+      area_three_name: Outdoor
+      animation_delay: 0.5s
+      alignment: start
+  - type: custom:streamline-card
+    template: spacer_card
+    variables:
+      padding: 4px
