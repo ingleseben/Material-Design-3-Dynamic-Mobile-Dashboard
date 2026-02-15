@@ -1,0 +1,41 @@
+# Home Assistant Configuration for Dynamic Dashboard v1
+# This configuration includes light groups and template sensors for the dashboard
+
+# Light Groups
+group:
+  kitchen_lights:
+    name: "Kitchen Lights"
+    entities:
+      - light.kitchen_light_front
+      - light.kitchen_light_rear
+
+  living_room_lights:
+    name: "Living Room Lights"
+    entities:
+      - light.living_room_light_left
+      - light.living_room_light_right
+
+# Template Sensors
+template:
+  - sensor:
+      - name: "Bedroom Lights Count"
+        unique_id: bedroom_lights_count
+        state: "{{ is_state('light.bedroom_light', 'on') | int }}"
+
+      - name: "Kitchen Lights Count"
+        unique_id: kitchen_lights_count
+        state: >
+          {{ expand('group.kitchen_lights')
+             | selectattr('state', 'eq', 'on')
+             | list | count }}
+
+      - name: "Living Room Lights Count"
+        unique_id: living_room_lights_count
+        state: >
+          {{ expand('group.living_room_lights')
+             | selectattr('state', 'eq', 'on')
+             | list | count }}
+
+      - name: "Desk Lights Count"
+        unique_id: desk_lights_count
+        state: "{{ is_state('light.desk_light', 'on') | int }}"
