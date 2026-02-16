@@ -1,0 +1,48 @@
+# Home Assistant - Security & Secrets
+secrets.yaml
+.storage/
+.cloud/
+
+# Home Assistant - Database & Logs
+home-assistant_v2.db
+home-assistant_v2.db-shm
+home-assistant_v2.db-wal
+home-assistant.log
+home-assistant.log.fault
+home-assistant.log.1
+OZW_Log.txt
+
+# Home Assistant - Runtime & Cache
+tts/
+.HA_VERSION
+__pycache__/
+*.py[cod]
+*.pyc
+blueprints/
+deps/
+
+# Home Assistant - Backups
+backups/
+*.tar
+
+# Home Assistant - HACS & Community
+www/community/
+custom_components/hacs/
+
+# Local development
+ha-repos/
+.venv/
+venv/
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace

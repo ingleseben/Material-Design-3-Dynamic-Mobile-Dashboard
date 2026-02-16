@@ -1,0 +1,5 @@
+# Entity customizations
+# Example:
+#   light.kitchen_light_front:
+#     friendly_name: "Kitchen Front Light"
+#     icon: mdi:ceiling-light

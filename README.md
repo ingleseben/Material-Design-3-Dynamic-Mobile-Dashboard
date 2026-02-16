@@ -178,8 +178,8 @@ Weather Related:
 
 **For new user:**
 - Copy all the code from _[full dashboard yaml](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/blob/main/dashboard.yaml)_ to a new dashboard raw configuration editor to jumpstart your experience.
-- Install the required HACS components (such as simple swipe card, stack-in-card, popup-card, etc. - see your setup for what’s needed).
-- To unlock the full functionality (like weather icons, notification counts, and more), you’ll need to add the corresponding [sensors](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/template%20sensor) to your config.
+- Install the required HACS components (such as simple swipe card, stack-in-card, popup-card, etc. - see your setup for what's needed).
+- To unlock the full functionality (like weather icons, notification counts, and more), you'll need to add the corresponding [sensors](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/template%20sensor) to your config.
 - For the Hue scene, you'll need to have the automation, scripts, input boolean, input text, and input number in your system that you can find in [hue asset folder](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/hue%20asset). For the images, you can get them from [here](https://github.com/Hypfer/hass-scene_presets/blob/master/custom_components/scene_presets/assets/Readme.md).
 - Apply the MD3 theme and select your preferred colors. It is accessible from Overview page > More > Bucket Fill Icon
 - Apply [wallpaper](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/wallpaper/) (optional)
@@ -190,6 +190,61 @@ Weather Related:
 - Choose which card / visuals that you like to be added to your installation by clicking the hyperlink provided in the description above.
 - Apply [wallpaper](https://github.com/ElementZoom/Material-Design-3-Dynamic-Mobile-Dashboard/tree/main/wallpaper/) (optional)
 - Set the companion app to full screen (optional)
+
+# Deployment
+
+For a comprehensive step-by-step deployment guide, see **[DEPLOYMENT.md](DEPLOYMENT.md)**.
+
+### Quick Start
+
+1. **Install HACS** and all required frontend cards (see [HACS_DEPENDENCIES.md](HACS_DEPENDENCIES.md) for the full list of 30+ cards)
+2. **Copy configuration** - Add the light groups and template sensors from `config/configuration.yaml` to your HA config
+3. **Deploy dashboard** - Copy `config/dashboards/mobile-dashboard.yaml` to your HA dashboards directory
+4. **Activate theme** - Select "Material You" in Settings > Profile > Theme
+5. **Verify** - Navigate to the dashboard and test all 6 views (Overview, Rooms, Bedroom, Kitchen, Living Room, Desk)
+
+### Repository Structure
+
+```
+dynamic_dashboard_v1/
+├── README.md                      # This file
+├── DEPLOYMENT.md                  # Step-by-step deployment guide
+├── HACS_DEPENDENCIES.md           # Complete HACS card list (30+ cards)
+├── VALIDATION_REPORT.md           # Implementation validation status
+├── dashboard.yaml                 # Original full dashboard YAML (reference)
+├── .gitignore                     # Security-aware git ignore rules
+│
+├── config/                        # Deployment-ready configuration
+│   ├── configuration.yaml         # Light groups & template sensors
+│   └── dashboards/
+│       ├── mobile-dashboard.yaml  # Adapted dashboard (deploy this)
+│       ├── DASHBOARD_README.md    # Dashboard-specific docs
+│       ├── SENSOR_INTEGRATION_GUIDE.md
+│       ├── STRUCTURE_MAP.md
+│       └── CHANGELOG.md
+│
+├── assets/                        # Dashboard card code examples
+├── template sensor/               # Template sensor configurations
+├── hue asset/                     # Hue scene automation files
+│   └── scene images/              # Hue scene preview images
+├── wallpaper/                     # Dashboard wallpaper options
+│
+└── docs/                          # Additional documentation
+    ├── GITHUB_DEPLOYMENT.md       # Git workflow & backup guide
+    ├── TESTING_CHECKLIST.md       # Validation procedures
+    └── MISSING_INTEGRATIONS.md    # Optional integrations guide
+```
+
+### Documentation Index
+
+| Document | Description |
+|----------|-------------|
+| [DEPLOYMENT.md](DEPLOYMENT.md) | Complete deployment walkthrough with prerequisites, installation order, and rollback procedures |
+| [HACS_DEPENDENCIES.md](HACS_DEPENDENCIES.md) | All 30+ HACS cards with names, URLs, installation order, and troubleshooting |
+| [VALIDATION_REPORT.md](VALIDATION_REPORT.md) | Implementation status, entity mapping, and feature readiness |
+| [docs/GITHUB_DEPLOYMENT.md](docs/GITHUB_DEPLOYMENT.md) | Git workflow, secrets management, VSCode addon usage |
+| [docs/TESTING_CHECKLIST.md](docs/TESTING_CHECKLIST.md) | Pre-deployment, configuration, dashboard, and performance test procedures |
+| [docs/MISSING_INTEGRATIONS.md](docs/MISSING_INTEGRATIONS.md) | Setup guides for weather, Hue scenes, cameras, Alarmo, climate, and more |
 
 # 📚 Credits
 

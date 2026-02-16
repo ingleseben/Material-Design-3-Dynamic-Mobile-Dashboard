@@ -1,0 +1,11 @@
+kitchen_lights:
+  name: "Kitchen Lights"
+  entities:
+    - light.kitchen_light_front
+    - light.kitchen_light_rear
+
+living_room_lights:
+  name: "Living Room Lights"
+  entities:
+    - light.living_room_light_left
+    - light.living_room_light_right

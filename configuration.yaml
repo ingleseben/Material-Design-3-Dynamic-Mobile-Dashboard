@@ -1,0 +1,53 @@
+# Home Assistant Configuration for Dynamic Dashboard v1
+
+homeassistant:
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: !secret elevation
+  unit_system: metric
+  time_zone: !secret time_zone
+  currency: !secret currency
+  customize: !include customize.yaml
+
+# Core Integrations
+frontend:
+  themes: !include_dir_merge_named themes/
+
+lovelace:
+  mode: storage
+
+config:
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - !secret trusted_proxy
+
+# Database & History
+recorder:
+  db_url: !secret db_url
+  purge_keep_days: 10
+  commit_interval: 1
+
+history:
+
+logbook:
+
+logger:
+  default: info
+  logs:
+    homeassistant.components.scene_presets: debug
+
+# Includes
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+input_boolean: !include input_boolean.yaml
+input_text: !include input_text.yaml
+input_number: !include input_number.yaml
+
+group: !include groups.yaml
+
+template: !include_dir_merge_list templates/
