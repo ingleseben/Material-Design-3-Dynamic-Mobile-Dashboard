@@ -2436,7 +2436,7 @@ views:
                                   {% elif temp < 16 %}          
                                     #BAABBD
                                   {% elif temp < 19 %}
-                                    #92BB D1
+                                    #92BBD1
                                   {% elif temp < 22 %}
                                     #B2C4BD
                                   {% elif temp < 24 %}
@@ -2454,9 +2454,9 @@ views:
                               - sensor.house_average_temperature
                               - sensor.outdoor_temperature
                             variables:
-                              - states['climate.heat_pump'].state
-                              - states['sensor.house_average_temperature'].state
-                              - states['sensor.outdoor_temperature'].state
+                              - states['climate.heat_pump'] ? states['climate.heat_pump'].state : 'off'
+                              - states['sensor.house_average_temperature'] ? states['sensor.house_average_temperature'].state : '0'
+                              - states['sensor.outdoor_temperature'] ? states['sensor.outdoor_temperature'].state : '0'
                             card:
                               type: custom:mini-graph-card
                               entities:
@@ -2654,7 +2654,7 @@ views:
                                         entity: binary_sensor.presence_active_la
                                         icon: mdi:sofa
                                         icon_color: |-
-                                          {% if is_state(entity, 'on') %} 
+                                          {% if is_state(entity, 'on') %} var(--md-sys-color-primary)
                                           {% else %}
                                            var(--primary-text-color)
                                           {% endif %}
@@ -2671,7 +2671,7 @@ views:
                                         entity: automation.room_presence_master_bedroom
                                         icon: m3of:bed
                                         icon_color: |-
-                                          {% if is_state(entity, 'on') %} 
+                                          {% if is_state(entity, 'on') %} var(--md-sys-color-primary)
                                           {% else %}
                                            var(--primary-text-color)
                                           {% endif %}
@@ -2686,7 +2686,7 @@ views:
                                         entity: automation.room_presence_baby_room
                                         icon: m3of:stroller
                                         icon_color: |-
-                                          {% if is_state(entity, 'on') %} 
+                                          {% if is_state(entity, 'on') %} var(--md-sys-color-primary)
                                           {% else %}
                                            var(--primary-text-color)
                                           {% endif %}
@@ -2702,7 +2702,7 @@ views:
                                           automation.room_presence_single_guest_room
                                         icon: m3of:person-3
                                         icon_color: |-
-                                          {% if is_state(entity, 'on') %} 
+                                          {% if is_state(entity, 'on') %} var(--md-sys-color-primary)
                                           {% else %}
                                            var(--primary-text-color)
                                           {% endif %}
@@ -2718,7 +2718,7 @@ views:
                                           automation.room_presence_multiple_guest_room
                                         icon: m3of:groups-2
                                         icon_color: |-
-                                          {% if is_state(entity, 'on') %} 
+                                          {% if is_state(entity, 'on') %} var(--md-sys-color-primary)
                                           {% else %}
                                            var(--primary-text-color)
                                           {% endif %}
@@ -2733,7 +2733,7 @@ views:
                                         entity: automation.room_presence_office
                                         icon: m3of:computer
                                         icon_color: |-
-                                          {% if is_state(entity, 'on') %} 
+                                          {% if is_state(entity, 'on') %} var(--md-sys-color-primary)
                                           {% else %}
                                            var(--primary-text-color)
                                           {% endif %}
@@ -3035,10 +3035,10 @@ views:
                       - type: custom:streamline-card
                         template: entity_count_card
                         variables:
-                          entity: group.all_curtains
-                          title: Curtains
-                          icon: m3of:curtains
-                          color: '#702963'
+                          - entity: group.all_curtains
+                          - title: Curtains
+                          - icon: m3of:curtains
+                          - color: '#702963'
                       - type: custom:auto-entities
                         card:
                           square: false
